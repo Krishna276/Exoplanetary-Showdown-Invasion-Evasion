@@ -36,12 +36,12 @@ Mostly consistent with PEP 8, but use camelCase for functions, to easily tell th
 |Module name|snake_case|
 |Class name|PascalCase|
 |Function name|camelCase|
-|Variable name*|snake_case|
+|Variable name\*|snake_case|
 |Constant name|ALL_CAPS|
 |First method argument|`self` for instance methods, `cls` for class methods|
 |Anything non-public|Prefix with `_`|
 
-*Including methods decorated with the `attribute` class, and fields of a class.
+\*Including methods decorated with the `property` class, and fields of a class.
 The following code is complient with this section:
 ```
 STACKSIZE: int = 10
