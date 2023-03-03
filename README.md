@@ -1,9 +1,8 @@
 # solid-enigma
-CoDerection's game repository.
+This is a repo for the game ___.
 Made by CoDerection:
 - Krishna Ranchhod
 - Colden Sapir
 - Samuel Harrison
 - James Venkatesan
 - Harry Shi
-
