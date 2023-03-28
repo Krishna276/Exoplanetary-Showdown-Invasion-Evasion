@@ -1,0 +1,8 @@
+{
+    "battlefield": {
+        "width": 30,
+        "hright": 15
+    },
+    "time": 300,
+    "earth_health": 100
+}
