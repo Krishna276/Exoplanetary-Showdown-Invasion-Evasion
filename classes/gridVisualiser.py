@@ -1,3 +1,5 @@
+"""This only visualises the grid, it is not part of the actual game."""
+
 from random import choice, randint
 from tkinter import Button, Label, Frame, Tk
 

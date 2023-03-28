@@ -6,10 +6,13 @@ from typing import Generic, TypeVar
 _T = TypeVar('_T')
 _Cost = int | None
 
+class VectorOutOfBoundsError(Exception):
+    """A vector is out of bounds."""
+
 class Vector:
-    """A set of x and y coordinates."""
+    """A 2-D vector, a set of x and y coordinates."""
     @property
-    def outOfBounds(self) -> bool:
+    def _outOfBounds(self) -> bool:
         if (
             self._max_x is not None and (self.x < 0 or self.x >= self._max_x)
             or self._max_y is not None and (self.y < 0 or self.y >= self._max_y)
@@ -19,25 +22,35 @@ class Vector:
     
     @property
     def x(self) -> int:
+        """The x-component of the vector."""
         return self._x
     
     @x.setter
     def x(self, x: int) -> None:
         self._x = x
-        if self.outOfBounds:
-            raise IndexError('Coordinates are out of bounds')
+        if self._outOfBounds:
+            raise VectorOutOfBoundsError('Coordinates are out of bounds')
     
     @property
     def y(self) -> int:
+        """The y-component of the vector."""
         return self._y
     
     @y.setter
     def y(self, y: int) -> None:
         self._y = y
-        if self.outOfBounds:
-            raise IndexError('Coordinates are out of bounds.')
+        if self._outOfBounds:
+            raise VectorOutOfBoundsError('Coordinates are out of bounds.')
 
     def __init__(self, x: int, y: int, max_x: int | None = None, max_y: int | None = None) -> None:
+        """A 2-D vector, a set of x and y coordinates.
+
+        Args:
+            x (int): The x-component of the vector.
+            y (int): THe y-component of the vector.
+            max_x (int | None, optional): The maximum value x can take. Defaults to None.
+            max_y (int | None, optional): The maximum value y can take. Defaults to None.
+        """
         self._max_x: int | None = max_x
         self._max_y: int | None = max_y
         self._x: int = x
@@ -65,6 +78,16 @@ class Vector:
     
     @staticmethod
     def fromTuple(t: tuple[int, int], max_x: int | None = None, max_y: int | None = None):
+        """Creates a vector object from a tuple.
+
+        Args:
+            t (tuple[int, int]): The tuple to create a vector from.
+            max_x (int | None, optional): The value to set max_x to. Defaults to None.
+            max_y (int | None, optional): The value to set max_y to. Defaults to None.
+
+        Returns:
+            Vector: The vector generated form the tuple.
+        """
         return Vector(t[0], t[1], max_x, max_y)
     
     def manhattan(self, other) -> int:
@@ -90,7 +113,6 @@ class Vector:
         return (self.x - other.x) ** 2 + (self.y - other.y) ** 2
 
 class _Node(Generic[_T]):
-    """A node on the grid."""
     def __init__(self, data: _T, cost: _Cost) -> None:
         self.data: _T = data
         self.cost: _Cost = cost
@@ -98,6 +120,11 @@ class _Node(Generic[_T]):
 class Grid(Generic[_T]):
     """An abstract data type representing the battlefield where all the runners run and turrets go."""
     def __init__(self, size: Vector) -> None:
+        """An abstract data type representing the battlefield where all the runners run and turrets go.
+
+        Args:
+            size (Vector): The dimensions of the grid to create.
+        """
         self._grid: list[list[_Node[_T] | None]] = [[None for j in range(size.x)] for i in range(size.y)]
         self._width: int = size.x
         self._height: int = size.y
@@ -124,16 +151,27 @@ class Grid(Generic[_T]):
     
     @property
     def width(self) -> int:
+        """How wide the grid is."""
         return self._width
     
     @property
     def height(self) -> int:
+        """How tall the grid is."""
         return self._height
     
     def _getCost(self, coords: Vector) -> _Cost:
         return self._grid[coords.y][coords.x].cost
     
     def pathfind(self, start: Vector, end: Vector) -> list[Vector] | None:
+        """Uses an A* search to find the path of least resistance.
+
+        Args:
+            start (Vector): The location to pathfind from.
+            end (Vector): The location to pathfind to.
+
+        Returns:
+            list[Vector] | None: The path of least resistance.
+        """
         open_set: list[tuple[int, Vector]] = []
         closed_set: set = set()
         heappush(open_set, (0, tuple(start)))
@@ -157,7 +195,7 @@ class Grid(Generic[_T]):
             for neighbor in Vector(1, 0), Vector(0, 1), Vector(-1, 0), Vector(0, -1):
                 try:
                     next_: Vector = current + neighbor
-                except IndexError:
+                except VectorOutOfBoundsError:
                     continue
                 if next_ in closed_set or self._getCost(next_) is None:
                     continue
