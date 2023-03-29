@@ -27,7 +27,6 @@ Or CCG for short.
 * For all standard library modules or pip installed modules, use `from <module> import <needed_things>`.
 ## Strings
 * Use single quotes in strings, unless the character `'` appears in the string, in that case, use double quotes.
-* Use a constant for a multi line string (in the first level of indentation of the file). This makes these strings in indented blocks easier to read and look nicer.
 ## Documentation
 * Always give public modules, classes and functions a docstring. PEP 8 recommends using the style in [PEP 257](https://peps.python.org/pep-0257/).
 * It's much easier if you write the function's signature (including any type annotations) first.
