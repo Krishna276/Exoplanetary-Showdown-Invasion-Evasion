@@ -4,11 +4,10 @@ related operations."""
 from heapq import heappop, heappush
 from typing import Generic, TypeVar
 
+from exceptions import VectorOutOfBoundsError
+
 _T = TypeVar('_T')
 _Cost = int | None
-
-class VectorOutOfBoundsError(Exception):
-    """A vector is out of bounds."""
 
 class Vector:
     """A 2-D vector, a set of x and y coordinates."""
