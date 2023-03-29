@@ -3,13 +3,22 @@
 from random import choice, randint
 from tkinter import Button, Label, Frame, Tk
 
-from src.classes.grid import Grid, Vector
+from classes.grid import Grid, Vector
 
 CHOICES = [1, 2, 3, 4, 5, 6, None, None, None]
 
 HEIGHT, WIDTH = 35, 70
 
-def getBg(i: int, j: int):
+def getBg(i: int, j: int) -> str:
+    """Gets the colour of a square.
+
+    Args:
+        i (int): The y-coordinate.
+        j (int): The x-coordinate.
+
+    Returns:
+        str: A hex code of the colour.
+    """
     if Vector(j, i) in (start, end):
         return '#00FF00'
     match grid[Vector(j, i, WIDTH, HEIGHT)]:
@@ -33,16 +42,17 @@ def getBg(i: int, j: int):
 tk: Tk = Tk()
 frame: Frame = Frame(tk)
 
-path: list[Vector] | None
+_path: list[Vector] | None
 grid: Grid[int]
 start: Vector
 end: Vector
 pathShown: bool
 
-def generate():
-    global path, grid, start, end, pathShown
-    path = None
-    while path is None:
+def generate() -> None:
+    """Generates the maze."""
+    global _path, grid, start, end, pathShown
+    _path = None
+    while _path is None:
         grid = Grid[int](Vector(WIDTH, HEIGHT))
         for i in range(HEIGHT):
             for j in range(WIDTH):
@@ -50,7 +60,7 @@ def generate():
                 grid[Vector(j, i)] = weight, weight
         start = Vector(randint(0, WIDTH - 1), randint(0, HEIGHT - 1), WIDTH, HEIGHT)
         end = Vector(randint(0, WIDTH - 1), randint(0, HEIGHT - 1), WIDTH, HEIGHT)
-        path = grid.pathfind(start, end)
+        _path = grid.pathfind(start, end)
     pathShown = False
 
 generate()
@@ -63,19 +73,21 @@ for i in range(HEIGHT):
 
 frame.pack()
 
-def show():
+def show() -> None:
+    """Show the path."""
     global pathShown
     if pathShown:
-        for square in path:
+        for square in _path:
             tk_grid[square.y][square.x].config(background=getBg(square.y, square.x))
     else:
-        for square in path:
+        for square in _path:
             tk_grid[square.y][square.x].config(background='#00FF00')
     pathShown = not pathShown
 
 Button(tk, text='Show/hide path', command=show).pack()
 
 def reset():
+    """Reset the maze challenge."""
     generate()
     for i in range(HEIGHT):
         for j in range(WIDTH):
