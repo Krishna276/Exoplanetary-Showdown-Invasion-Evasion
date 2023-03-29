@@ -1,6 +1,6 @@
 """Loads all the constants for the game."""
 
-from json import load
+from json import load as _load
 
 ALIENS: dict = {}
 GAME_SETTINGS: dict = {}
@@ -13,7 +13,7 @@ with (
     open('constants/tiles.json') as tiles,
     open('constants/turrets.json') as turrets
 ):
-    ALIENS = load(aliens)
-    GAME_SETTINGS = load(game_settings)
-    TILES = load(tiles)
-    TURRETS = load(turrets)
+    ALIENS = _load(aliens)
+    GAME_SETTINGS = _load(game_settings)
+    TILES = _load(tiles)
+    TURRETS = _load(turrets)
