@@ -13,10 +13,10 @@ TURRETS: dict = {}
 _path = str(_Path(__file__).parent.absolute())
 
 with (
-    open(_path + '/aliens.json', 'r') as aliens,
-    open(_path + '/game_settings.json', 'r') as game_settings,
-    open(_path + '/tiles.json', 'r') as tiles,
-    open(_path + '/turrets.json', 'r') as turrets
+    open(_path + '/json/aliens.json', 'r') as aliens,
+    open(_path + '/json/game_settings.json', 'r') as game_settings,
+    open(_path + '/json/tiles.json', 'r') as tiles,
+    open(_path + '/json/turrets.json', 'r') as turrets
 ):
     ALIENS = _load(aliens)
     GAME_SETTINGS = _load(game_settings)
