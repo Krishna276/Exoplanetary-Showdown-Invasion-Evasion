@@ -1,5 +1,5 @@
 # solid-enigma
-This is a repo for the game ___ made by CoDerection:
+This is a repo for the game _Chronicles of the Interstellar Siege: High on the Cosmos: Galactic Abstraction: Defend the Cosmos V_ made by CoDerection:
 * Krishna Ranchhod
 * Colden Sapir
 * Samuel Harrison
