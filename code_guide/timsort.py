@@ -1,6 +1,8 @@
+"""Timsorts a randomly generated list."""
+
 from random import randint
 
-def insertionSort(lst: list[object]) -> list[object]:
+def _insertionSort(lst: list[object]) -> list[object]:
     """Perform an insertion sort on a list. Insertion sort is fast for small lists.
 
     Args:
@@ -19,6 +21,7 @@ def insertionSort(lst: list[object]) -> list[object]:
     return lst
 
 def _merge(left: list[object], right: list[object]) -> list[object]:
+    """Merges two sublists."""
     new_list: list[object] = []
     while len(left) > 0 and len(right) > 0:
         new_list.append(left.pop(0) if right[0] > left[0] else right.pop(0))
@@ -26,6 +29,7 @@ def _merge(left: list[object], right: list[object]) -> list[object]:
     return new_list
 
 def _calculate_minrun(n: int) -> int:
+    """Calculates the ideal value for the minrun parameter, based on the number of elements in the list."""
     r: int = 0
     while n >= 64:
         r |= n & 1
@@ -49,7 +53,7 @@ def timsort(lst: list[object], minrun: int | None = None) -> list[object]:
         minrun = _calculate_minrun(n)
     for start in range(0, n, minrun):
         end = min(start + minrun, n)
-        lst[start:end] = insertionSort(lst[start:end])
+        lst[start:end] = _insertionSort(lst[start:end])
     size: int = minrun
     while size < n:
         for start in range(0, n, size * 2):
