@@ -1,5 +1,4 @@
-"""Implements the Grid class. Also provides the Vector class, to use with the grid for indexing and other vector
-related operations."""
+"""Implements the Grid class."""
 
 from heapq import heappop, heappush
 from typing import Generic, TypeVar

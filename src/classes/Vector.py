@@ -1,5 +1,6 @@
-from classes.exceptions import VectorOutOfBoundsError
+"""Provides the Vector class."""
 
+from classes.exceptions import VectorOutOfBoundsError
 
 class Vector:
     """A 2-D vector, a set of x and y coordinates."""
