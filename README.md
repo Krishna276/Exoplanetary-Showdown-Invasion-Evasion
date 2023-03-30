@@ -1,5 +1,5 @@
 # solid-enigma
-This is a repo for the game __ made by CoDerection:
+This is a repo for the game _Exoplanetary Showdown: Invasion Evasion_ made by CoDerection:
 * Krishna Ranchhod
 * Colden Sapir
 * Samuel Harrison
