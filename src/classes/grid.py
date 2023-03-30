@@ -47,7 +47,7 @@ class Vector:
 
         Args:
             x (int): The x-component of the vector.
-            y (int): THe y-component of the vector.
+            y (int): The y-component of the vector.
             max_x (int | None, optional): The maximum value x can take. Defaults to None.
             max_y (int | None, optional): The maximum value y can take. Defaults to None.
         """
@@ -129,40 +129,40 @@ class Grid(Generic[_T]):
         self._grid: list[list[_Node[_T] | None]] = [[None for _ in range(size.x)] for _ in range(size.y)]
         self._width: int = size.x
         self._height: int = size.y
-    
+
     def __getitem__(self, coords: Vector) -> _T:
         return self._grid[coords.y][coords.x].data
-    
+
     def __setitem__(self, coords: Vector, value: tuple[_T, _Cost]) -> None:
         if self._grid[coords.y][coords.x] is not None:
             self._grid[coords.y][coords.x].data, self._grid[coords.y][coords.x].cost = value
         else:
             self._grid[coords.y][coords.x] = _Node[_T](value[0], value[1])
-    
+
     def __iter__(self):
         self._iter_x: int = -1
         self._iter_y: int = -1
         return self
-    
+
     def __next__(self) -> _T:
         self._iter_x = (self._iter_x + 1) % self.width
         if self._iter_x == 0:
             self._iter_y = (self._iter_y + 1) % self.height
         return self._iter_y, self._iter_x, self[Vector(self._iter_x, self._iter_y)]
-    
+
     @property
     def width(self) -> int:
         """How wide the grid is."""
         return self._width
-    
+
     @property
     def height(self) -> int:
         """How tall the grid is."""
         return self._height
-    
+
     def _getCost(self, coords: Vector) -> _Cost:
         return self._grid[coords.y][coords.x].cost
-    
+
     def pathfind(self, start: Vector, end: Vector) -> list[Vector] | None:
         """Uses an A* search to find the path of least resistance.
 
@@ -190,7 +190,7 @@ class Grid(Generic[_T]):
                     current = previous_nodes[current]
                 path.reverse()
                 return path
-            
+
             closed_set.add(current)
 
             for neighbor in Vector(1, 0), Vector(0, 1), Vector(-1, 0), Vector(0, -1):
