@@ -65,8 +65,7 @@ def timsort(lst: list[object], minrun: int | None = None) -> list[object]:
 
 # For testing the timsort's stability
 class Thing:
-    """A thing to sort.
-    """
+    """A thing to sort."""
     def __init__(self, number: int, letter: str) -> None:
         """A thing to sort.
 
@@ -85,6 +84,7 @@ class Thing:
     
     @property
     def number(self) -> int:
+        """Gets the number."""
         return self._number
 
 
