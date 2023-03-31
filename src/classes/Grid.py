@@ -68,7 +68,7 @@ class Grid(Generic[_T]):
             end (Vector): The location to pathfind to.
 
         Returns:
-            list[Vector] | None: The path of least resistance, as a list of the next square.
+            list[Vector] | None: The path of least resistance, as a list of the next squares to go to.
         """
         open_set: list[tuple[int, Vector]] = []
         closed_set: set = set()
