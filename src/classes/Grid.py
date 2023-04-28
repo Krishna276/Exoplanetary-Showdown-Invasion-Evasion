@@ -85,8 +85,7 @@ class Grid(Generic[_T]):
                 while current is not None:
                     path.append(current)
                     current = previous_nodes[current]
-                path.reverse()
-                return path
+                return path[::-1]
 
             closed_set.add(current)
 
