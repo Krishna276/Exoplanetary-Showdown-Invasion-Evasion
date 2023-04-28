@@ -5,16 +5,18 @@ This is a repo for the game _Exoplanetary Showdown: Invasion Evasion_ made by Co
 * Samuel Harrison
 * James Venkatesan
 * Harry Shi
-Remember that this game is still in development, so it doesn't work (at all) right now. We'll make it obvious when it does work.
+## The Game
+This is part of a project for a Computer Science class.\
+Remember that this game is still in development, so it doesn't work (at all) right now. We'll make it obvious as soon as it does work.
 ## How the game works
 Put simply, there's an attacker, trying to invade the Earth with an alien army. There is also a defender, who is trying to save the Earth from this. The defender can place turrets on the battlefield, and the attacker will summon aliens that will attempt to reach earth, with the hope of damaging the Earth's health. The attacker wins if Earth's health reaches zero (or below), and the defender wins if the Earth's health is greater than zero when the attacker runs out of a certian rescource (this is TBD, but we're thinking it should be time).
 ## The Battlefield
 There are multiple tiles, each with a different cost associated with it for traversal by an alien. The defender can place thier turrets on these tiles with almost no restrictions.
 ### Types of tile
 Not all of these may be implemented. Tiles in order of how alien-friendly they are.
-|Type of tile|Attacker Traversal Cost|What it does|
+|Type of tile|Alien Traversal Cost|What it does|
 |-|-|-|
-|Portal|0|Attackers start here.|
+|Portal|0|Aliens start here.|
 |Earth|0|This is the tile where the Earth is.|
 |No damage|0|Aliens do not take damage while on these tiles.|
 |Speed|1|Speeds up aliens on these tiles.|
@@ -23,7 +25,7 @@ Not all of these may be implemented. Tiles in order of how alien-friendly they a
 |Slowness|9|Slows down aliens on these tiles.|
 |Hazard|10|Aliens will take extra damage in addition to that dealt by turrets.|
 |Block|$\infty$|Aliens cannot traverse this tile, turrets cannot be placed on these tiles either.|
-|No alien|$\infty$|Aliens cannof traverse this tile.|
+|No alien|$\infty$|Aliens cannot traverse this tile.|
 ### Alien behaviour
 Aliens will follow the path of least resistance to get to the earth. When they reach it, they will be able to attack the earth. The earth has some natural defences, and will deal damage to every alien that attacks it.
 ## Gameplay
