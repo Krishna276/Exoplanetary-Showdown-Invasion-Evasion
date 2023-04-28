@@ -1,10 +1,11 @@
-# solid-enigma
+# Exoplanetary Showdown: Invasion Evasion
 This is a repo for the game _Exoplanetary Showdown: Invasion Evasion_ made by CoDerection:
 * Krishna Ranchhod
 * Colden Sapir
 * Samuel Harrison
 * James Venkatesan
 * Harry Shi
+Remember that this game is still in development, so it doesn't work (at all) right now. We'll make it obvious when it does work.
 ## How the game works
 Put simply, there's an attacker, trying to invade the Earth with an alien army. There is also a defender, who is trying to save the Earth from this. The defender can place turrets on the battlefield, and the attacker will summon aliens that will attempt to reach earth, with the hope of damaging the Earth's health. The attacker wins if Earth's health reaches zero (or below), and the defender wins if the Earth's health is greater than zero when the attacker runs out of a certian rescource (this is TBD, but we're thinking it should be time).
 ## The Battlefield
