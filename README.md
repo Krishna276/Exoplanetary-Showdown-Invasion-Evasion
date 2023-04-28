@@ -5,7 +5,7 @@ This is a repo for the game _Exoplanetary Showdown: Invasion Evasion_ made by Co
 * Samuel Harrison
 * James Venkatesan
 * Harry Shi
-## The Game
+## This Project
 This is part of a project for a Computer Science class.\
 Remember that this game is still in development, so it doesn't work (at all) right now. We'll make it obvious as soon as it does work.
 ## How the game works
