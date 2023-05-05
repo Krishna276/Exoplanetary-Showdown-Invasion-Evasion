@@ -3,13 +3,13 @@
 from enum import Enum
 
 class TileType(Enum):
-    """An enum of the tile type."""
+    """A type of tile."""
     VACUUM = 0
     EARTH = 1
     PORTAL = 2
-    SLOW = 3
+    SLOWNESS = 3
     SPEED = 4
-    NO_DAMAGE = 5
+    IMMUNITY = 5
     DAMAGE = 6
     NO_TURRET = 7
     NO_ALIEN = 8
@@ -24,7 +24,7 @@ class Tile:
             tileType (TileType): The type of tile to create.
         """
         self._tileType: TileType = tileType
-        # self._turret: Turret | None = None
+        # Eventually, this will also contain the turret that is placed.
     
     @property
     def tileType(self) -> TileType:
