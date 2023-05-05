@@ -6,6 +6,8 @@ from typing import Generic, TypeVar
 from classes.exceptions import VectorOutOfBoundsError
 from classes.vector import Vector
 
+__all__ = ['Grid']
+
 _T = TypeVar('_T')
 _Cost = int | None
 
