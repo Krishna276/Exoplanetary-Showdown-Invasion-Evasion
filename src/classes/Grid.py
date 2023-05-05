@@ -4,7 +4,7 @@ from heapq import heappop, heappush
 from typing import Generic, TypeVar
 
 from classes.exceptions import VectorOutOfBoundsError
-from classes.Vector import Vector
+from classes.vector import Vector
 
 _T = TypeVar('_T')
 _Cost = int | None

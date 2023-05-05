@@ -3,8 +3,8 @@
 from random import choice, randint
 from tkinter import Button, Label, Frame, Tk
 
-from classes.Grid import Grid
-from classes.Vector import Vector
+from classes.grid import Grid
+from classes.vector import Vector
 
 CHOICES = [1, 2, 3, 4, 5, 6, None, None, None]
 
