@@ -1,10 +1,11 @@
 """Implements the Grid class."""
 
+from functools import singledispatchmethod
 from heapq import heappop, heappush
 from typing import Generic, TypeVar
 
-from classes.exceptions import VectorOutOfBoundsError
-from classes.vector import Vector
+from src.classes.exceptions import VectorOutOfBoundsError
+from src.classes.vector import Vector
 
 __all__ = ['Grid']
 
@@ -29,8 +30,21 @@ class Grid(Generic[_T]):
         self._width: int = size.x
         self._height: int = size.y
 
-    def __getitem__(self, coords: Vector) -> _T:
+    @singledispatchmethod
+    def __getitem__(self, index) -> _T:
+        raise TypeError('You need to specity a Vector or tuple of coordinates to index a grid.')
+    
+    @__getitem__.register
+    def _(self, coords: Vector) -> _T:
         return self._grid[coords.y][coords.x].data
+    
+    @__getitem__.register
+    def _(self, coords: tuple) -> _T:
+        if len(coords) != 2:
+            raise ValueError('Only two coordinates are allowed.')
+        if not isinstance(coords[0], int) or not isinstance(coords[1], int):
+            raise TypeError('Coordinates passed in are not integers.')
+        return self[Vector(coords[0], coords[1], self.width, self.height)]
 
     def __setitem__(self, coords: Vector, value: tuple[_T, _Cost]) -> None:
         if self._grid[coords.y][coords.x] is not None:
