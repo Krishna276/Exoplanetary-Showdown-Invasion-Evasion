@@ -10,6 +10,7 @@ Or CCS for short.
 * Due to requirements of the project, you must use Python 3. The version used will be the lastest available version.
 * You can tell the latest version from the [Python website](https://www.python.org/).
 * You will also need the latest version of PyGame. You can get the latest version easily if you have Python installed. Run the command `pip install pygame` in Command Prompt or Terminal.
+* While not a requirement, it is strongly recommended to use a linter while programming. It just makes things so much nicer.
 ## Commenting Code
 ### Variable Declarations
 * Instead of using comments to state variable data types, use type annotations. Not only do these make the data type clear to humans, but to the computer as well. The code completion in many IDEs likes it that way too, so it can lead to faster development.
