@@ -71,9 +71,11 @@ class Sorter:
                 return x < y if sortAsc_ else x > y
             except TypeError:
                 raise SortTypeError
+        # Copy the list, so we do not sort the original list, but return a brand new one instead.
         lst: list[int] = self.lst.copy()
         for i in range(1, len(lst)):
             key: int = lst[i]
+            # Use the compare function where the comparison operator usually goes
             while i > 0 and compare(key, lst[i - 1], sortAsc):
                 lst[i] = lst[i - 1]
                 i -= 1
