@@ -46,11 +46,24 @@ class Grid(Generic[_T]):
             raise TypeError('Coordinates passed in are not integers.')
         return self[Vector(coords[0], coords[1], self.width, self.height)]
 
-    def __setitem__(self, coords: Vector, value: tuple[_T, _Cost]) -> None:
+    @singledispatchmethod
+    def __setitem__(self, index, value) -> None:
+        raise TypeError('You need to specity a Vector or tuple of coordinates to index a grid.')
+
+    @__setitem__.register
+    def _(self, coords: Vector, value: tuple[_T, _Cost]) -> None:
         if self._grid[coords.y][coords.x] is not None:
             self._grid[coords.y][coords.x].data, self._grid[coords.y][coords.x].cost = value
         else:
             self._grid[coords.y][coords.x] = _Node[_T](value[0], value[1])
+    
+    @__setitem__.register
+    def _(self, coords: tuple[int, int], value: tuple[_T, _Cost]) -> None:
+        if len(coords) != 2:
+            raise ValueError('Only two coordinates are allowed.')
+        if not isinstance(coords[0], int) or not isinstance(coords[1], int):
+            raise TypeError('Coordinates passed in are not integers.')
+        self[Vector(coords[0], coords[1], self.width, self.height)] = value
 
     def __iter__(self):
         self._iter_x: int = -1
