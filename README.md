@@ -16,7 +16,7 @@ There are multiple tiles, each with a different cost associated with it for trav
 Not all of these may be implemented. Tiles in order of how alien-friendly they are.
 |Type of tile|Alien Traversal Cost|What it does|
 |-|-|-|
-|Portal|0|Aliens start here.|
+|Mothership|0|Aliens start here.|
 |Earth|0|This is the tile where the Earth is.|
 |No damage|0|Aliens do not take damage while on these tiles.|
 |Speed|1|Speeds up aliens on these tiles.|
@@ -32,8 +32,21 @@ Aliens will follow the path of least resistance to get to the earth. When they r
 To stop the defender from blocking aliens in, they are subject to some turret placement rules.
 ### Summoning Aliens
 The attacker must use a currency to summon aliens. The longer an individual alien survives, the more currency it will earn.
+#### Types of Alien Ship
+|Type of Alien Ship|Description|Damage|Health|Speed|Cost|
+|-|-|-|-|-|-|
+|Frigate|A fast and low-cost ship|||||
+|Cruiser|A high damaging, high health but slow ship|||||
+|Medic|A ship that heals other ships|||||
+|Miner|A ship that picks up more currency than usual|||||
 ### Summoning Turrets
-The defender earns thier currency (for buying turrets) by killing off aliens (this works whether it was the Earth or a turret that killed the alien).
+The defender earns thier currency (for buying turrets) by killing off aliens (this works whether it was the Earth, hazard or a turret that killed the alien).
+#### Types of Turret
+|Type of turret|Description|Damage|Range|Cost|
+|-|-|-|-|-|
+|Laser|Simple direct damage.||||
+|EMP|AoE damage||||
+|Farm|Passively generates currency|||
 #### Turret Placement Rules
 This is the deciding algorithm.
 1. Is the turret on a Block, No turret, Portal or Earth tile? If so, go to step 3.
