@@ -1,33 +1,41 @@
 {
-    "1": {
-        "name": "Portal",
-        "cost": 0
-    },
-    "2": {
-        "name": "Earth",
-        "cost": 0
-    },
-    "3": {
+    "0": {
         "name": "Empty space",
         "cost": 3
     },
-    "4": {
+    "1": {
+        "name": "Earth",
+        "cost": 0
+    },
+    "2": {
+        "name": "Mothership",
+        "cost": 0
+    },
+    "3": {
         "name": "Slowness",
         "cost": 9
     },
-    "5": {
+    "4": {
         "name": "Speed",
         "cost": 1
     },
-    "6": {
+    "5": {
         "name": "No damage",
         "cost": 0
     },
-    "7": {
+    "6": {
         "name": "Hazard",
         "cost": 10
     },
+    "7": {
+        "name": "No Turret",
+        "cost": 3
+    },
     "8": {
+        "name": "No Alien",
+        "cost": null
+    },
+    "9": {
         "name": "Block",
         "cost": null
     }
