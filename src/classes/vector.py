@@ -46,6 +46,7 @@ class Vector:
         self._max_x: int | None = max_x
         self._max_y: int | None = max_y
         self._x: int = x
+        # Using the setter here allows us to check for out of bounds automatically.
         self.y = y
 
     def __repr__(self) -> str:
@@ -62,6 +63,9 @@ class Vector:
         if isinstance(other, Vector):
             return Vector(self.x + other.x, self.y + other.y, self._max_x, self._max_y)
         raise TypeError('A vector may only be added to another vector.')
+    
+    def __neg__(self):
+        return Vector(self.x, self.y)
 
     def __eq__(self, other: object) -> bool:
         if isinstance(other, Vector):
@@ -97,3 +101,6 @@ class Vector:
             int: The square of the displacemenet to other.
         """
         return (self.x - other.x) ** 2 + (self.y - other.y) ** 2
+
+VECTOR_i: Vector = Vector(1, 0)
+VECTOR_j: Vector = Vector(0, 1)

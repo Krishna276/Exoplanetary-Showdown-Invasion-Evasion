@@ -5,7 +5,7 @@ from heapq import heappop, heappush
 from typing import Generic, TypeVar
 
 from src.classes.exceptions import VectorOutOfBoundsError
-from src.classes.vector import Vector
+from src.classes.vector import Vector, VECTOR_i, VECTOR_j
 
 __all__ = ['Grid']
 
@@ -118,7 +118,7 @@ class Grid(Generic[_T]):
 
             closed_set.add(current)
 
-            for neighbor in Vector(1, 0), Vector(0, 1), Vector(-1, 0), Vector(0, -1):
+            for neighbor in VECTOR_i, VECTOR_j, -VECTOR_i, -VECTOR_j:
                 try:
                     next_: Vector = current + neighbor
                 except VectorOutOfBoundsError:
