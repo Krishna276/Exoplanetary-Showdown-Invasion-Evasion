@@ -58,7 +58,7 @@ class Grid(Generic[_T]):
             self._grid[coords.y][coords.x] = _Node[_T](value[0], value[1])
     
     @__setitem__.register
-    def _(self, coords: tuple[int, int], value: tuple[_T, _Cost]) -> None:
+    def _(self, coords: tuple, value: tuple[_T, _Cost]) -> None:
         if len(coords) != 2:
             raise ValueError('Only two coordinates are allowed.')
         if not isinstance(coords[0], int) or not isinstance(coords[1], int):

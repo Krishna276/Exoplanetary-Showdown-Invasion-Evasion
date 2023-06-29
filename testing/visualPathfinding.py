@@ -1,10 +1,12 @@
-"""This only visualises the grid, it is not part of the actual game."""
+from sys import path
+
+path.append(input('Enter root path: '))
 
 from random import choice, randint
 from tkinter import Button, Label, Frame, Tk
 
-from classes.grid import Grid
-from classes.vector import Vector
+from src.classes.grid import Grid
+from src.classes.vector import Vector
 
 CHOICES = [1, 2, 3, 4, 5, 6, None, None, None]
 
