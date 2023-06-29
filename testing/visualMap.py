@@ -1,9 +1,8 @@
-from time import sleep
 from sys import path
 
-path.append(input('Enter root path: '))
+path.append(input('Enter repo root path: '))
 
-from PySimpleGUI import Button, Input, Frame, Text, Window, WIN_CLOSED
+from PySimpleGUI import Button, Input, Frame, Text, Window, WIN_CLOSED, theme
 
 from src.classes.tile import TileType
 from src.constants import GAME_SETTINGS, TILES
@@ -24,16 +23,15 @@ COLOURS = [
     '#000000'
 ]
 
+# theme('Dark') to change theme
+
 map_, earth, portal = generateMap(WIDTH, HEIGHT, '0')
 
 def getColour(x: int, y: int) -> str:
     return COLOURS[map_[x, y].tileType.value]
 
-last_row = []
-
-for i in range(10):
-    last_row.append(Text('    ', background_color=COLOURS[i]))
-    last_row.append(Text(TILES[TileType(i).name]['name']))
+def compliment(hex_color: str) -> str:
+    return '#%02X%02X%02X' % tuple(255 - i for i in tuple(int(hex_color[i:i + 2], 16) for i in range(1, 7, 2)))
 
 layout = [
     [Text('Visual Map Generator')],
@@ -42,10 +40,10 @@ layout = [
         [Text('    ', background_color=getColour(j, i), key=f'-{i},{j}-') for j in range(WIDTH)] for i in range(HEIGHT)
     ])],
     [Text('Seed: '), Input('0', key='-seed-'), Button('Generate Map'), Button('Pathfind')],
-    [Text('Key:')],
-    last_row
+    [Text('Key:')] + [Text(TILES[TileType(i).name]['name'], background_color=COLOURS[i], text_color=compliment(COLOURS[i])) for i in range(10)]
 ]
 
+# Create a PySimpleGUI window
 window: Window = Window('Visual Map Generation', layout=layout)
 
 # Run the PySimpleGUI event loop
