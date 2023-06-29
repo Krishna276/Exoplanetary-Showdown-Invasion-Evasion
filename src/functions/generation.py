@@ -38,15 +38,16 @@ def _generateClusterShape(centre: Vector, generator: Random, distance: int = 1) 
             pass
     return cluster
 
-def generateMap(width: int, height: int, seed: int) -> Grid[Tile]:
-    """Generates the map.
+def generateMap(width: int, height: int, seed: int) -> tuple[Grid[Tile], Vector, Vector]:
+    """Generates the map, and returns this along with the coordinates of the earth and mothership.
 
     Args:
-        width (int): Width of the map to generate.
-        height (int): Height of the map to generate.
+        width (int): The width of the map.
+        height (int): The height of the map.
+        seed (int): The seed to generate the map with.
 
     Returns:
-        Grid[Tile]: A Grid object representing the generated map.
+        tuple[Grid[Tile], Vector, Vector]: The generated map, and the coordinates of the earth and the mothership.
     """
     generator: Random = Random(seed)
     # Some things that can be pre-computed as they're same each time.
@@ -88,4 +89,4 @@ def generateMap(width: int, height: int, seed: int) -> Grid[Tile]:
                 map_[j, i] = Tile(types[i][j]), TILES[types[i][j].name]['cost']
         # If a valid path exists, then return the filled in Grid.
         if map_.pathfind(Vector(col, row), Vector(earth_col, earth_row)) is not None:
-            return map_
+            return map_, Vector(earth_col, earth_row, width, height), Vector(col, row, width, height)

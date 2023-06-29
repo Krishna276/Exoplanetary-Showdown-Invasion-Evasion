@@ -1,6 +1,6 @@
 {
     "VACUUM": {
-        "name": "Empty space",
+        "name": "Vacuum",
         "cost": 3
     },
     "EARTH": {
@@ -36,7 +36,7 @@
         "cost": null
     },
     "BLOCK": {
-        "name": "Block",
+        "name": "Asteroid",
         "cost": null
     }
 }
