@@ -1,41 +1,41 @@
 {
-    "0": {
+    "VACUUM": {
         "name": "Empty space",
         "cost": 3
     },
-    "1": {
+    "EARTH": {
         "name": "Earth",
         "cost": 0
     },
-    "2": {
+    "PORTAL": {
         "name": "Mothership",
         "cost": 0
     },
-    "3": {
+    "SLOWNESS": {
         "name": "Slowness",
         "cost": 9
     },
-    "4": {
+    "SPEED": {
         "name": "Speed",
         "cost": 1
     },
-    "5": {
+    "IMMUNITY": {
         "name": "No damage",
         "cost": 0
     },
-    "6": {
+    "DAMAGE": {
         "name": "Hazard",
         "cost": 10
     },
-    "7": {
+    "NO_TURRET": {
         "name": "No Turret",
         "cost": 3
     },
-    "8": {
+    "NO_ALIEN": {
         "name": "No Alien",
         "cost": null
     },
-    "9": {
+    "BLOCK": {
         "name": "Block",
         "cost": null
     }
