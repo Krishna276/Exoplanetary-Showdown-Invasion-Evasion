@@ -134,3 +134,21 @@ class Grid(Generic[_T]):
                 heappush(open_set, (f_score[next_], tuple(next_)))
         return None
 
+    def resistance(self, start: Vector, end: Vector) -> _Cost:
+        """Determines the shortest possible resistance between two nodes on the graph.
+
+        Args:
+            start (Vector): Where to start the pathfinding.
+            end (Vector): Where to attempt to pathdinf to.
+
+        Returns:
+            _Cost: The total resistance to get there, or None if it is not possible.
+        """
+        path: list[Vector] | None = self.pathfind(start, end)
+        if path is None:
+            return None
+        cost: int = 0
+        for node in path:
+            cost += self._getCost(node)
+        return cost
+
