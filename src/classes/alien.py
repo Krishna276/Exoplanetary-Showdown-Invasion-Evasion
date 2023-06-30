@@ -38,5 +38,13 @@ class Alien:
         self._position += vector
     
     def get(self, key: str):
+        """Get a particular property like max health or speed.
+
+        Args:
+            key (str): The key to access, like a dictionary.
+
+        Returns:
+            Any: The value for that key.
+        """
         return ALIENS[self._type.name][key]
 
