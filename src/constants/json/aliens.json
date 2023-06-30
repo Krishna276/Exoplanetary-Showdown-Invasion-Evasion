@@ -1,36 +1,36 @@
 {
     "DAMAGE": {
         "name": "Frigate",
-        "damage": 100,
-        "health": 100,
-        "speed": 10,
+        "damage": 100.0,
+        "max_health": 100.0,
+        "speed": 10.0,
         "cost": 5,
         "income": 1,
         "healing": false
     },
     "TANK": {
         "name": "Cruiser",
-        "damage": 50,
-        "health": 300,
-        "speed": 75,
+        "damage": 50.0,
+        "max_health": 300.0,
+        "speed": 75.0,
         "cost": 20,
         "income": 1,
         "healing": false
     },
     "HEALER": {
         "name": "Medic",
-        "damage": 0,
-        "health": 100,
-        "speed": 100,
+        "damage": 0.0,
+        "max_health": 100.0,
+        "speed": 100.0,
         "cost": 15,
         "income": 1,
         "healing": true
     },
     "ECON": {
         "name": "Miner",
-        "damage": 50,
-        "health": 100,
-        "speed": 10,
+        "damage": 50.0,
+        "max_health": 100.0,
+        "speed": 10.0,
         "cost": 5,
         "income": 5,
         "healing": false

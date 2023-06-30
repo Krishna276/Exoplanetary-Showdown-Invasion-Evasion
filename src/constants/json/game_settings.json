@@ -2,8 +2,8 @@
     "battlefield": {
         "width": 30,
         "height": 20,
-        "cluster_density": 0.25,
-        "cluster_expansion_probability": 0.33
+        "cluster_density": 0.15,
+        "cluster_expansion_probability": 0.25
     },
     "time": 300,
     "earth_health": 100

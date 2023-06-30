@@ -2,7 +2,7 @@ from sys import path
 
 path.append(input('Enter repo root path: '))
 
-from PySimpleGUI import Button, Input, Frame, Text, Window, WIN_CLOSED, theme
+from PySimpleGUI import Button, Input, Frame, Text, Window, WIN_CLOSED
 
 from src.classes.tile import TileType
 from src.constants import GAME_SETTINGS, TILES
@@ -23,7 +23,7 @@ COLOURS = [
     '#000000'
 ]
 
-# theme('Dark') to change theme
+# PySimpleGUI.theme(theme: str) to change theme
 
 map_, earth, portal = generateMap(WIDTH, HEIGHT, '0')
 
