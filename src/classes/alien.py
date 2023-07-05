@@ -32,12 +32,22 @@ class Alien:
         return self._health
     
     def changeHealth(self, health: float) -> None:
+        """Damage the alien or heal it.
+
+        Args:
+            health (float): How much the health should change by, use a negative number to damage them.
+        """
         self._health += health
     
     def translate(self, vector: FloatVector) -> None:
+        """Move the alien.
+
+        Args:
+            vector (FloatVector): The vector to translate by.
+        """
         self._position += vector
     
-    def get(self, key: str):
+    def getKey(self, key: str):
         """Get a particular property like max health or speed.
 
         Args:
