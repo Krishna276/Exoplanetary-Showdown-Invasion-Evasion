@@ -1,26 +1,26 @@
 {
     "DIRECT": {
         "name": "Laser Machine Gun",
-        "damage": 10,
-        "speed": 100,
+        "damage": 10.0,
+        "speed": 100.0,
         "cost": 5,
-        "range": 10,
+        "range": 10.0,
         "income": 1
     },
     "AOE": {
         "name": "EMP",
-        "damage": 10,
-        "speed": 10,
+        "damage": 10.0,
+        "speed": 10.0,
         "cost": 20,
-        "range": 5,
+        "range": 5.0,
         "income": 1
     },
     "ECON": {
         "name": "Miner",
-        "damage": 5,
-        "speed": 100,
+        "damage": 5.0,
+        "speed": 100.0,
         "cost": 10,
-        "range": 10,
+        "range": 10.0,
         "income": 5
     }
 }
