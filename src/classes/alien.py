@@ -17,7 +17,7 @@ class Alien:
     def __init__(self, type: AlienType, position: FloatVector) -> None:
         self._type: AlienType = type
         self._position: FloatVector = position
-        self._health: float = ALIENS[type]['max_health']
+        self._health: float = self.max_health
     
     @property
     def type(self) -> AlienType:
@@ -30,6 +30,29 @@ class Alien:
     @property
     def health(self) -> float:
         return self._health
+    
+    @property
+    def name(self) -> str:
+        return self._getKey('name')
+    
+    @property
+    def damage(self) -> float:
+        return self._getKey('damage')
+    
+    def max_health(self) -> float:
+        return self._getKey('max_health')
+    
+    def speed(self) -> float:
+        return self._getKey('speed')
+    
+    def cost(self) -> int:
+        return self._getKey('cost')
+    
+    def income(self) -> int:
+        return self._getKey('income')
+    
+    def healing(self) -> bool:
+        return self._getKey('healing')
     
     def changeHealth(self, health: float) -> None:
         """Damage the alien or heal it.
@@ -47,7 +70,7 @@ class Alien:
         """
         self._position += vector
     
-    def getKey(self, key: str):
+    def _getKey(self, key: str):
         """Get a particular property like max health or speed.
 
         Args:
