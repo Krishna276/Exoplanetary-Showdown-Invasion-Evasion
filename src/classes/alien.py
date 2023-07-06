@@ -39,20 +39,28 @@ class Alien:
     def damage(self) -> float:
         return self._getKey('damage')
     
+    @property
     def max_health(self) -> float:
         return self._getKey('max_health')
     
+    @property
     def speed(self) -> float:
         return self._getKey('speed')
     
+    @property
     def cost(self) -> int:
         return self._getKey('cost')
     
+    @property
     def income(self) -> int:
         return self._getKey('income')
     
+    @property
     def healing(self) -> bool:
         return self._getKey('healing')
+    
+    def _getKey(self, key: str):
+        return ALIENS[self._type.name][key]
     
     def changeHealth(self, health: float) -> None:
         """Damage the alien or heal it.
@@ -69,15 +77,4 @@ class Alien:
             vector (FloatVector): The vector to translate by.
         """
         self._position += vector
-    
-    def _getKey(self, key: str):
-        """Get a particular property like max health or speed.
-
-        Args:
-            key (str): The key to access, like a dictionary.
-
-        Returns:
-            Any: The value for that key.
-        """
-        return ALIENS[self._type.name][key]
 
