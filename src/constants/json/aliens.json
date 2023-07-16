@@ -6,7 +6,8 @@
         "speed": 10.0,
         "cost": 5,
         "income": 1,
-        "healing": false
+        "healing": false,
+        "sprite_path": "/assets/images/placeholder"
     },
     "TANK": {
         "name": "Cruiser",
@@ -15,7 +16,8 @@
         "speed": 75.0,
         "cost": 20,
         "income": 1,
-        "healing": false
+        "healing": false,
+        "sprite_path": "/assets/images/placeholder"
     },
     "HEALER": {
         "name": "Medic",
@@ -24,7 +26,8 @@
         "speed": 100.0,
         "cost": 15,
         "income": 1,
-        "healing": true
+        "healing": true,
+        "sprite_path": "/assets/images/placeholder"
     },
     "ECON": {
         "name": "Miner",
@@ -33,6 +36,7 @@
         "speed": 10.0,
         "cost": 5,
         "income": 5,
-        "healing": false
+        "healing": false,
+        "sprite_path": "/assets/images/placeholder"
     }
 }

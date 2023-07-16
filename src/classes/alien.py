@@ -59,6 +59,10 @@ class Alien:
     def healing(self) -> bool:
         return self._getKey('healing')
     
+    @property
+    def sprite_path(self) -> str:
+        return self._getKey('sprite_path')
+    
     def _getKey(self, key: str):
         return ALIENS[self._type.name][key]
     
