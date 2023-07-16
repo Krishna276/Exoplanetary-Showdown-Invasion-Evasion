@@ -1,42 +1,52 @@
 {
     "VACUUM": {
         "name": "Vacuum",
-        "cost": 3
+        "cost": 3,
+        "allows_turrets": true
     },
     "EARTH": {
         "name": "Earth",
-        "cost": 0
+        "cost": 0,
+        "allows_turrets": false
     },
     "PORTAL": {
         "name": "Mothership",
-        "cost": 0
+        "cost": 0,
+        "allows_turrets": false
     },
     "SLOWNESS": {
         "name": "Slowness",
-        "cost": 9
+        "cost": 9,
+        "allows_turrets": true
     },
     "SPEED": {
         "name": "Speed",
-        "cost": 1
+        "cost": 1,
+        "allows_turrets": true
     },
     "IMMUNITY": {
         "name": "No damage",
-        "cost": 0
+        "cost": 0,
+        "allows_turrets": true
     },
     "DAMAGE": {
         "name": "Hazard",
-        "cost": 10
+        "cost": 10,
+        "allows_turrets": true
     },
     "NO_TURRET": {
         "name": "No Turret",
-        "cost": 3
+        "cost": 3,
+        "allows_turrets": false
     },
     "NO_ALIEN": {
         "name": "No Alien",
-        "cost": null
+        "cost": null,
+        "allows_turrets": true
     },
     "BLOCK": {
         "name": "Asteroid",
-        "cost": null
+        "cost": null,
+        "allows_turrets": false
     }
 }
