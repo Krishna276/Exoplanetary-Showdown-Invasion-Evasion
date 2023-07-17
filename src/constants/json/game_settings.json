@@ -10,6 +10,7 @@
     "window": {
         "width": 1920,
         "height": 1080,
-        "icon": "/assets/images/window_icon.png"
+        "icon": "/assets/images/window_icon.png",
+        "scale": 0.5
     }
 }
