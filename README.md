@@ -49,11 +49,6 @@ The defender earns thier currency (for buying turrets) by killing off aliens (th
 |Farm|Passively generates currency|||
 #### Turret Placement Rules
 This is the deciding algorithm.
-1. Is the turret on a Block, No turret, Portal or Earth tile? If so, go to step 3.
-2. Are all Portal tiles connected by at least 1 valid path to the Earth tile? If so, go to step 4.
-3. No turret can be placed.
-4. Is there an alien on the current tile? If so, go to step 6.
-5. Does the defender have the required amount of currency? If so, go to step 8.
-6. Is the alien on the current tile a boss? If so, go to step 3.
-7. The alien is killed, the currency deducted and the turret is placed.
-8. The currency deducted and the turret is placed.
+* There must be a valid path from the mothership to earth.
+* There must be no turret already occupying the tile.
+* The tile type must allow for turrets to be placed on it.
