@@ -5,8 +5,10 @@
         "cluster_density": 0.15,
         "cluster_expansion_probability": 0.25
     },
-    "time": 300,
-    "earth_health": 100,
+    "game": {
+        "time": 300,
+        "earth_health": 100
+    },
     "window": {
         "width": 1920,
         "height": 1080,
