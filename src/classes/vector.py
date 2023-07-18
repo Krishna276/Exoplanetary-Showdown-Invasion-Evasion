@@ -1,5 +1,7 @@
 """Provides the Vector class."""
 
+from typing import Self
+
 from src.classes.exceptions import VectorOutOfBoundsError
 
 class _BaseVector:
@@ -51,6 +53,14 @@ class Vector(_BaseVector):
         self._y = y
         if self._outOfBounds:
             raise VectorOutOfBoundsError('Coordinates are out of bounds.')
+    
+    @property
+    def max_x(self) -> int:
+        return self._max_x
+    
+    @property
+    def max_y(self) -> int:
+        return self._max_y
 
     def __repr__(self) -> str:
         return f'Vector({self.x}, {self.y}, {self._max_x}, {self._max_y})'
@@ -109,7 +119,7 @@ class Vector(_BaseVector):
 
 class FloatVector(_BaseVector):
     """A 2-D vector that can have float values in it, though it cannot be used to index a grid."""
-    def __init__(self, x: float, y: float, max_x: int | None = None, max_y: int | None = None) -> None:
+    def __init__(self, x: float, y: float, max_x: float | None = None, max_y: float | None = None) -> None:
         """A 2-D vector that can have float values in it, though it cannot be used to index a grid.
 
         Args:
@@ -123,6 +133,13 @@ class FloatVector(_BaseVector):
         self._x: float = x
         # Using the setter here allows us to check for out of bounds automatically.
         self.y = y
+
+    @staticmethod
+    def fromVector(vector: Vector) -> Self:
+        return FloatVector(vector.x, vector.y, vector.max_x, vector.max_y)
+    
+    def toVector(self) -> Vector:
+        return Vector(int(self._x), int(self._y), int(self._max_x), int(self._max_y))
     
     @property
     def _outOfBounds(self) -> bool:
@@ -149,6 +166,14 @@ class FloatVector(_BaseVector):
     def y(self, value: float) -> None:
         self._y = value
     
+    @property
+    def max_x(self) -> float:
+        return self._max_x
+    
+    @property
+    def max_y(self) -> float:
+        return self._max_y
+    
     def __repr__(self) -> str:
         return f'FloatVector({self.x}, {self.y}, {self._max_x}, {self._max_y})'
     
@@ -156,17 +181,17 @@ class FloatVector(_BaseVector):
         yield self.x
         yield self.y
     
-    def __add__(self, other):
+    def __add__(self, other) -> Self:
         if isinstance(other, _BaseVector):
             return FloatVector(self.x + other.x, self.y + other.y, self._max_x, self._max_y)
         raise ValueError('A float vector may only be added to another float vector.')
     
-    def __neg__(self):
+    def __neg__(self) -> Self:
         return FloatVector(-self.x, -self.y)
 
 
 VECTOR_i: Vector = Vector(1, 0)
 VECTOR_j: Vector = Vector(0, 1)
 
-FLOATVECTOR_i: FloatVector = FloatVector(1, 0)
-FLOATVECTOR_j: FloatVector = FloatVector(0, 1)
+FLOATVECTOR_i: FloatVector = FloatVector(1.0, 0.0)
+FLOATVECTOR_j: FloatVector = FloatVector(0.0, 1.0)
