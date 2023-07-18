@@ -1,4 +1,4 @@
-"""Module that runs the game, including all top-level gameplay functions and managing things like sprites."""
+"""Module that provides the class that runs the game."""
 
 import pygame
 import pygame_gui
@@ -9,7 +9,7 @@ class Game:
     """A class that runs the game."""
     def __init__(self) -> None:
         pygame.init()
-        scale: float = 0
+        scale: float = GAME_SETTINGS['window']['scale']
         self.window_width: int = int(GAME_SETTINGS['window']['width'] * scale)
         self.window_height: int = int(GAME_SETTINGS['window']['height'] * scale)
         self.screen: pygame.Surface = pygame.display.set_mode(
@@ -29,17 +29,19 @@ class Game:
     def _kill(self) -> None:
         self.running = False
     
-    def play(self) -> None:
-        while self.running:
-            self._loop()
-
-    def _loop(self) -> None:
-        dt: int = self.clock.tick()
+    def _update(self) -> None:
+        dt: int = self.clock.tick(60)
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 self._kill()
             self.ui_manager.process_events(event)
+        for entity in self.all_sprites:
+            self.screen.blit(entity.surf, entity.rect)
         self.ui_manager.update(pygame.time.get_ticks())
         self.ui_manager.draw_ui(self.screen)
         pygame.display.flip()
+    
+    def play(self) -> None:
+        while self.running:
+            self._update()
 
