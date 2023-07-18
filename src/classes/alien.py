@@ -2,7 +2,9 @@
 
 from enum import Enum
 
-from src.classes.vector import FloatVector
+import pygame
+
+from src.classes.vector import FloatVector, Vector
 from src.constants import ALIENS
 
 class AlienType(Enum):
@@ -12,73 +14,28 @@ class AlienType(Enum):
     HEALER = 2
     ECON = 3
 
-class Alien:
-    """An alien on the map, this stores the details about each alien, like where it is on the map."""
-    def __init__(self, type: AlienType, position: FloatVector) -> None:
-        self._type: AlienType = type
-        self._position: FloatVector = position
-        self._health: float = self.max_health
+class Alien(pygame.sprite.Sprite):
+    """An alien on the map."""
+    def __init__(self, type: AlienType, position: FloatVector, *groups) -> None:
+        super().__init__(*groups)
+        self.type: AlienType = type
+        self.health: float = self.getValue('max_health')
+        self.surf: pygame.Surface = pygame.image.load(self.getValue('sprite_path')).convert()
+        self.surf.set_colorkey('#00000000', pygame.RLEACCEL)
+        self.rect = self.surf.get_rect(center=(position.x, position.y))
     
-    @property
-    def type(self) -> AlienType:
-        return self._type
+    def update(self, dt: int, path: ) -> None:
+        pass
 
-    @property
-    def position(self) -> FloatVector:
-        return self._position
+    
+    def getValue(self, key: str):
+        """Gets a key from the JSON data.
 
-    @property
-    def health(self) -> float:
-        return self._health
-    
-    @property
-    def name(self) -> str:
-        return self._getKey('name')
-    
-    @property
-    def damage(self) -> float:
-        return self._getKey('damage')
-    
-    @property
-    def max_health(self) -> float:
-        return self._getKey('max_health')
-    
-    @property
-    def speed(self) -> float:
-        return self._getKey('speed')
-    
-    @property
-    def cost(self) -> int:
-        return self._getKey('cost')
-    
-    @property
-    def income(self) -> int:
-        return self._getKey('income')
-    
-    @property
-    def healing(self) -> bool:
-        return self._getKey('healing')
-    
-    @property
-    def sprite_path(self) -> str:
-        return self._getKey('sprite_path')
-    
-    def _getKey(self, key: str):
+        Args:
+            key (str): The key of the value to get.
+
+        Returns:
+            Any: The value of that key, as whatever data type it is.
+        """
         return ALIENS[self._type.name][key]
-    
-    def changeHealth(self, health: float) -> None:
-        """Damage the alien or heal it.
-
-        Args:
-            health (float): How much the health should change by, use a negative number to damage them.
-        """
-        self._health += health
-    
-    def translate(self, vector: FloatVector) -> None:
-        """Move the alien.
-
-        Args:
-            vector (FloatVector): The vector to translate by.
-        """
-        self._position += vector
 

@@ -7,7 +7,7 @@
         "cost": 5,
         "income": 1,
         "healing": false,
-        "sprite_path": "/assets/images/placeholder"
+        "sprite_path": "/assets/images/frigate.png"
     },
     "TANK": {
         "name": "Cruiser",
@@ -17,7 +17,7 @@
         "cost": 20,
         "income": 1,
         "healing": false,
-        "sprite_path": "/assets/images/placeholder"
+        "sprite_path": "/assets/images/tank.png"
     },
     "HEALER": {
         "name": "Medic",
@@ -27,7 +27,7 @@
         "cost": 15,
         "income": 1,
         "healing": true,
-        "sprite_path": "/assets/images/placeholder"
+        "sprite_path": "/assets/images/medic.png"
     },
     "ECON": {
         "name": "Miner",
@@ -37,6 +37,6 @@
         "cost": 5,
         "income": 5,
         "healing": false,
-        "sprite_path": "/assets/images/placeholder"
+        "sprite_path": "/assets/images/miner.png"
     }
 }
