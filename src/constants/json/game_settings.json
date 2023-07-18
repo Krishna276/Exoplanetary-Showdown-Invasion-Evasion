@@ -9,6 +9,10 @@
         "time": 300,
         "earth_health": 100
     },
+    "battlefield_surface": {
+        "width": 1728,
+        "height": 972
+    },
     "window": {
         "width": 1920,
         "height": 1080,
