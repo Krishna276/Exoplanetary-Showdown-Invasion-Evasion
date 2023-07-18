@@ -2,7 +2,10 @@
 
 from src.classes.exceptions import VectorOutOfBoundsError
 
-class Vector:
+class _BaseVector:
+    """Common base class for all Vectors."""
+
+class Vector(_BaseVector):
     """A 2-D vector, a set of x and y coordinates."""
     def __init__(self, x: int, y: int, max_x: int | None = None, max_y: int | None = None) -> None:
         """A 2-D vector, a set of x and y coordinates.
@@ -62,6 +65,8 @@ class Vector:
     def __add__(self, other):
         if isinstance(other, Vector):
             return Vector(self.x + other.x, self.y + other.y, self._max_x, self._max_y)
+        elif isinstance(other, FloatVector):
+            return FloatVector(self.x + other.x, self.y + other.y, self._max_x, self._max_y)
         raise TypeError('A vector may only be added to another vector.')
     
     def __neg__(self):
@@ -102,7 +107,7 @@ class Vector:
         """
         return (self.x - other.x) ** 2 + (self.y - other.y) ** 2
 
-class FloatVector:
+class FloatVector(_BaseVector):
     """A 2-D vector that can have float values in it, though it cannot be used to index a grid."""
     def __init__(self, x: float, y: float, max_x: int | None = None, max_y: int | None = None) -> None:
         """A 2-D vector that can have float values in it, though it cannot be used to index a grid.
@@ -152,7 +157,7 @@ class FloatVector:
         yield self.y
     
     def __add__(self, other):
-        if isinstance(other, FloatVector):
+        if isinstance(other, _BaseVector):
             return FloatVector(self.x + other.x, self.y + other.y, self._max_x, self._max_y)
         raise ValueError('A float vector may only be added to another float vector.')
     
