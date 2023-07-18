@@ -3,7 +3,7 @@
 import pygame
 import pygame_gui
 
-from constants import GAME_SETTINGS, ROOT
+from src.constants import GAME_SETTINGS, ROOT
 
 class Game:
     """A class that runs the game."""
