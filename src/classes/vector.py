@@ -72,14 +72,20 @@ class Vector(_BaseVector):
     def __hash__(self) -> int:
         return hash((self.x, self.y))
 
-    def __add__(self, other):
+    def __add__(self, other) -> Self:
         if isinstance(other, Vector):
             return Vector(self.x + other.x, self.y + other.y, self._max_x, self._max_y)
         elif isinstance(other, FloatVector):
             return FloatVector(self.x + other.x, self.y + other.y, self._max_x, self._max_y)
         raise TypeError('A vector may only be added to another vector.')
     
-    def __neg__(self):
+    def __mul__(self, other) -> Self:
+        if isinstance(other, int):
+            return Vector(self.x * other, self.y * other, self._max_x, self._max_y)
+        elif isinstance(other, FloatVector):
+            return FloatVector(self.x * other, self.y * other, self._max_x, self._max_y)
+    
+    def __neg__(self) -> Self:
         return Vector(-self.x, -self.y)
 
     def __eq__(self, other: object) -> bool:
@@ -185,6 +191,11 @@ class FloatVector(_BaseVector):
         if isinstance(other, _BaseVector):
             return FloatVector(self.x + other.x, self.y + other.y, self._max_x, self._max_y)
         raise ValueError('A float vector may only be added to another float vector.')
+    
+    def __mul__(self, other) -> Self:
+        if isinstance(other, (float, int)):
+            return FloatVector(self.x * other, self.y * other, self._max_x, self._max_y)
+        raise ValueError('The only supported types for vector multiplication are integers or floats.')
     
     def __neg__(self) -> Self:
         return FloatVector(-self.x, -self.y)
