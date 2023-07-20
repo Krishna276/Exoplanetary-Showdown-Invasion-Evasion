@@ -1,6 +1,9 @@
 """Loads all the constants for the game."""
 
-__all__ = ['ALIENS', 'GAME_SETTINGS', 'TILES', 'TURRETS', 'ROOT']
+__all__ = [
+    'ALIENS', 'GAME_SETTINGS', 'TILES', 'TURRETS', 'ROOT', 'WINDOW_WIDTH', 'WINDOW_HEIGHT', 'BF_SURF_WIDTH',
+    'BF_SURF_HEIGHT', 'BF_GRID_WIDTH', 'BF_GRID_HEIGHT'
+]
 
 from json import load
 from pathlib import Path
@@ -22,3 +25,14 @@ with (
     GAME_SETTINGS = load(game_settings)
     TILES = load(tiles)
     TURRETS = load(turrets)
+
+_scale: float = GAME_SETTINGS['window']['scale']
+
+WINDOW_WIDTH: int = int(GAME_SETTINGS['window']['width'] * _scale)
+WINDOW_HEIGHT: int = int(GAME_SETTINGS['window']['height'] * _scale)
+
+BF_SURF_WIDTH: int = int(GAME_SETTINGS['battlefield_surface']['width'] * _scale)
+BF_SURF_HEIGHT: int = int(GAME_SETTINGS['battlefield_surface']['height'] * _scale)
+
+BF_GRID_WIDTH: int = GAME_SETTINGS['battlefield']['width']
+BF_GRID_HEIGHT: int = GAME_SETTINGS['battlefield']['height']
