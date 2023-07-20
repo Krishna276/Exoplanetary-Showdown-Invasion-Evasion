@@ -243,16 +243,20 @@ class FloatVector(_BaseVector):
         return self._x
     
     @x.setter
-    def x(self, value: float) -> None:
-        self._x = value
+    def x(self, x: float) -> None:
+        self._x = x
+        if self._outOfBounds:
+            raise VectorOutOfBoundsError('Coordinates are out of bounds')
     
     @property
     def y(self) -> float:
         return self._y
     
     @y.setter
-    def y(self, value: float) -> None:
-        self._y = value
+    def y(self, y: float) -> None:
+        self._y = y
+        if self._outOfBounds:
+            raise VectorOutOfBoundsError('Coordinates are out of bounds')
     
     @property
     def max_x(self) -> float:
