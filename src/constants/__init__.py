@@ -2,7 +2,7 @@
 
 __all__ = [
     'ALIENS', 'GAME_SETTINGS', 'TILES', 'TURRETS', 'ROOT', 'WINDOW_WIDTH', 'WINDOW_HEIGHT', 'BF_SURF_WIDTH',
-    'BF_SURF_HEIGHT', 'BF_GRID_WIDTH', 'BF_GRID_HEIGHT'
+    'BF_SURF_HEIGHT', 'BF_GRID_WIDTH', 'BF_GRID_HEIGHT', 'BF_TILE_LENGTH'
 ]
 
 from json import load
@@ -31,8 +31,7 @@ _scale: float = GAME_SETTINGS['window']['scale']
 WINDOW_WIDTH: int = int(GAME_SETTINGS['window']['width'] * _scale)
 WINDOW_HEIGHT: int = int(GAME_SETTINGS['window']['height'] * _scale)
 
-BF_SURF_WIDTH: int = int(GAME_SETTINGS['battlefield_surface']['width'] * _scale)
-BF_SURF_HEIGHT: int = int(GAME_SETTINGS['battlefield_surface']['height'] * _scale)
-
 BF_GRID_WIDTH: int = GAME_SETTINGS['battlefield']['width']
 BF_GRID_HEIGHT: int = GAME_SETTINGS['battlefield']['height']
+
+BF_TILE_LENGTH: int = int(GAME_SETTINGS['battlefield_surface']['tile_length'] * _scale)

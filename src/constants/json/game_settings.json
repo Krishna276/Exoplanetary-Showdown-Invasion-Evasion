@@ -10,8 +10,7 @@
         "earth_health": 100
     },
     "battlefield_surface": {
-        "width": 1728,
-        "height": 972
+        "tile_length": 54
     },
     "window": {
         "width": 1920,
