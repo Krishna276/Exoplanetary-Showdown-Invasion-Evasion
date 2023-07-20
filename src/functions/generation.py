@@ -38,7 +38,7 @@ def _generateClusterShape(centre: Vector, generator: Random, distance: int = 1) 
             pass
     return cluster
 
-def generateMap(width: int, height: int, seed: int) -> tuple[Grid[Tile], Vector, Vector]:
+def generateMap(width: int, height: int, seed: str) -> tuple[Grid[Tile], Vector, Vector]:
     """Generates the map, and returns this along with the coordinates of the earth and mothership.
 
     Args:
