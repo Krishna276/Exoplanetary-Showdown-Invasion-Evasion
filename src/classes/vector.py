@@ -1,11 +1,81 @@
-"""Provides the Vector class."""
+"""Provides the Vector classes.
 
+Type conversion rules for binary operators on vectors:
+
+The following will return a FloatVector:
+* Binary operations involving at least one FloatVector
+* Multiplication of a Vector by a float
+* True division operations
+
+In all other cases, a Vector object is returned.
+
+Note that these vector classes only support scalar multiplication.
+"""
+
+from abc import ABC, abstractmethod
 from typing import Self
 
 from src.classes.exceptions import VectorOutOfBoundsError
 
-class _BaseVector:
+class _BaseVector(ABC):
     """Common base class for all Vectors."""
+    def __init__(self) -> None:
+        self._x: int
+        self._y: int
+        self._max_x: int
+        self._max_y: int
+    
+    def __iter__(self):
+        yield self._x
+        yield self._y
+
+    def __eq__(self, other: object) -> bool:
+        if type(other) != type(self):
+            return False
+        return self._x == other.x and self._y == other.y
+    
+    
+    
+    def __truediv__(self, other):
+        if isinstance(other, (int, float)):
+            return FloatVector(self._x / other, self._y / other, self._max_x, self._max_y)
+        raise TypeError('Vector objects only support division by ints or floats.')
+
+    @abstractmethod
+    def __repr__(self) -> str:
+        pass
+
+    @abstractmethod
+    def __add__(self, other):
+        pass
+
+    @abstractmethod
+    def __mul__(self, other):
+        pass
+
+    @abstractmethod
+    def __rmul__(self, other):
+        pass
+
+    @abstractmethod
+    def __neg__(self):
+        pass
+
+    @abstractmethod
+    def __sub__(self, other):
+        pass
+
+    @abstractmethod
+    def __floordiv__(self, other):
+        pass
+
+    @abstractmethod
+    def __mod__(self, other):
+        pass
+
+    @abstractmethod
+    def s2(self, other):
+        pass
 
 class Vector(_BaseVector):
     """A 2-D vector, a set of x and y coordinates."""
@@ -26,8 +96,8 @@ class Vector(_BaseVector):
     @property
     def _outOfBounds(self) -> bool:
         if (
-            self._max_x is not None and (self.x < 0 or self.x >= self._max_x)
-            or self._max_y is not None and (self.y < 0 or self.y >= self._max_y)
+            self._max_x is not None and (self._x < 0 or self._x >= self._max_x)
+            or self._max_y is not None and (self._y < 0 or self._y >= self._max_y)
         ):
             return True
         return False
@@ -63,35 +133,47 @@ class Vector(_BaseVector):
         return self._max_y
 
     def __repr__(self) -> str:
-        return f'Vector({self.x}, {self.y}, {self._max_x}, {self._max_y})'
-
-    def __iter__(self):
-        yield self.x
-        yield self.y
+        return f'Vector({self._x}, {self._y}, {self._max_x}, {self._max_y})'
 
     def __hash__(self) -> int:
-        return hash((self.x, self.y))
+        return hash((self._x, self._y))
 
     def __add__(self, other) -> Self:
         if isinstance(other, Vector):
-            return Vector(self.x + other.x, self.y + other.y, self._max_x, self._max_y)
+            return Vector(self._x + other.x, self._y + other.y, self._max_x, self._max_y)
         elif isinstance(other, FloatVector):
-            return FloatVector(self.x + other.x, self.y + other.y, self._max_x, self._max_y)
+            return FloatVector(self._x + other.x, self._y + other.y, self._max_x, self._max_y)
         raise TypeError('A vector may only be added to another vector.')
     
-    def __mul__(self, other) -> Self:
+    def __mul__(self, other):
         if isinstance(other, int):
-            return Vector(self.x * other, self.y * other, self._max_x, self._max_y)
-        elif isinstance(other, FloatVector):
-            return FloatVector(self.x * other, self.y * other, self._max_x, self._max_y)
+            return Vector(self._x * other, self._y * other, self._max_x, self._max_y)
+        elif isinstance(other, float):
+            return FloatVector(self._x * other, self._y * other, self._max_x, self._max_y)
+        raise TypeError('The only supported types for vector multiplication are ints and floats.')
+    
+    def __rmul__(self, other) -> Self:
+        return self * other
     
     def __neg__(self) -> Self:
-        return Vector(-self.x, -self.y)
-
-    def __eq__(self, other: object) -> bool:
-        if isinstance(other, Vector):
-            return self.x == other.x and self.y == other.y
-        return False
+        return Vector(-self._x, -self._y)
+    
+    def __sub__(self, other) -> Self:
+        return self + -other
+    
+    def __floordiv__(self, other):
+        if isinstance(other, int):
+            return Vector(self._x // other, self._y // other, self._max_x, self._max_y)
+        elif isinstance(other, float):
+            return FloatVector(self._x // other, self._y // other, self._max_x, self._max_y)
+        raise TypeError('The only supported types for vector division are ints and floats.')
+    
+    def __mod__(self, other):
+        if isinstance(other, int):
+            return Vector(self._x % other, self._y % other, self._max_x, self._max_y)
+        elif isinstance(other, float):
+            return FloatVector(self._x % other, self._y % other, self._max_x, self._max_y)
+        raise TypeError('The only supported types for vector division are ints and floats.')
 
     @staticmethod
     def fromTuple(t: tuple[int, int], max_x: int | None = None, max_y: int | None = None):
@@ -105,23 +187,23 @@ class Vector(_BaseVector):
         """
         return Vector(t[0], t[1], max_x, max_y)
 
-    def manhattan(self, other) -> int:
+    def manhattan(self, other: Self) -> int:
         """Calculates the manhattan distance to another vector.
         Args:
-            other (GridCoordinates): The location to calculate distance to.
+            other (Self): The location to calculate distance to.
         Returns:
             int: The manhattan discance to the location.
         """
-        return abs(self.x - other.x) + abs(self.y - other.y)
+        return abs(self._x - other.x) + abs(self._y - other.y)
 
-    def s2(self, other) -> int:
+    def s2(self, other: Self) -> int:
         """Calculates the square of the euclidean distance.
         Args:
-            other (GridCoordinates): The location to calculate displacement to.
+            other (Self): The location to calculate displacement to.
         Returns:
             int: The square of the displacemenet to other.
         """
-        return (self.x - other.x) ** 2 + (self.y - other.y) ** 2
+        return (self._x - other.x) ** 2 + (self._y - other.y) ** 2
 
 class FloatVector(_BaseVector):
     """A 2-D vector that can have float values in it, though it cannot be used to index a grid."""
@@ -150,8 +232,8 @@ class FloatVector(_BaseVector):
     @property
     def _outOfBounds(self) -> bool:
         if (
-            self._max_x is not None and (self.x < 0 or self.x >= self._max_x)
-            or self._max_y is not None and (self.y < 0 or self.y >= self._max_y)
+            self._max_x is not None and (self._x < 0 or self._x >= self._max_x)
+            or self._max_y is not None and (self._y < 0 or self._y >= self._max_y)
         ):
             return True
         return False
@@ -181,28 +263,51 @@ class FloatVector(_BaseVector):
         return self._max_y
     
     def __repr__(self) -> str:
-        return f'FloatVector({self.x}, {self.y}, {self._max_x}, {self._max_y})'
-    
-    def __iter__(self):
-        yield self.x
-        yield self.y
+        return f'FloatVector({self._x}, {self._y}, {self._max_x}, {self._max_y})'
     
     def __add__(self, other) -> Self:
         if isinstance(other, _BaseVector):
-            return FloatVector(self.x + other.x, self.y + other.y, self._max_x, self._max_y)
-        raise ValueError('A float vector may only be added to another float vector.')
+            return FloatVector(self._x + other.x, self._y + other.y, self._max_x, self._max_y)
+        raise TypeError('A float vector may only be added to another float vector.')
     
     def __mul__(self, other) -> Self:
         if isinstance(other, (float, int)):
-            return FloatVector(self.x * other, self.y * other, self._max_x, self._max_y)
-        raise ValueError('The only supported types for vector multiplication are integers or floats.')
+            return FloatVector(self._x * other, self._y * other, self._max_x, self._max_y)
+        raise TypeError('The only supported types for vector multiplication are integers or floats.')
+    
+    def __rmul__(self, other):
+        return self * other
     
     def __neg__(self) -> Self:
-        return FloatVector(-self.x, -self.y)
+        return FloatVector(-self._x, -self._y)
+    
+    def __sub__(self, other) -> Self:
+        return self + -other
+    
+    def __floordiv__(self, other) -> Self:
+        if isinstance(other, (float, int)):
+            return FloatVector(self._x // other, self._y // other, self._max_x, self._max_y)
+        raise TypeError('The only supported types for vector division are integers or floats.')
+    
+    def __mod__(self, other) -> Self:
+        if isinstance(other, (float, int)):
+            return FloatVector(self._x % other, self._y % other, self._max_x, self._max_y)
+        raise TypeError('The only supported types for vector division are integers or floats.')
+    
+    def s2(self, other: Self) -> float:
+        """Calculates the square of the euclidean distance.
+        Args:
+            other (Self): The location to calculate displacement to.
+        Returns:
+            float: The square of the displacemenet to other.
+        """
+        return (self._x - other.x) ** 2 + (self._y - other.y) ** 2
 
 
 VECTOR_i: Vector = Vector(1, 0)
 VECTOR_j: Vector = Vector(0, 1)
+VECTOR_0: Vector = Vector(0, 0)
 
 FLOATVECTOR_i: FloatVector = FloatVector(1.0, 0.0)
 FLOATVECTOR_j: FloatVector = FloatVector(0.0, 1.0)
+FLOATVECTOR_0: FloatVector = FloatVector(0.0, 0.0)
