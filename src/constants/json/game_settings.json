@@ -1,7 +1,7 @@
 {
     "battlefield": {
-        "width": 32,
-        "height": 18,
+        "width": 16,
+        "height": 9,
         "cluster_density": 0.15,
         "cluster_expansion_probability": 0.25
     },
@@ -10,7 +10,7 @@
         "earth_health": 100
     },
     "battlefield_surface": {
-        "tile_length": 54
+        "tile_length": 108
     },
     "window": {
         "width": 1920,
