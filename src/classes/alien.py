@@ -22,12 +22,15 @@ class Alien(pygame.sprite.Sprite):
         super().__init__(*groups)
         self.type: AlienType = type
         self.health: float = self.getValue('max_health')
-        self.speedEffect = 1.0
+        self.speedEffect: float = 1.0
         self.surf: pygame.Surface = pygame.image.load(self.getValue('sprite_path')).convert()
         self.surf.set_colorkey('#00000000', pygame.RLEACCEL)
         self.rect = self.surf.get_rect(center=(position.x, position.y))
     
     def update(self, dt: int, path: list[Vector]) -> None:
+        if self.health <= 0:
+            self.kill()
+            return
         direction: Vector | None = getDirection(FloatVector(self.rect.x, self.rect.y), path)
         if direction is None:
             pygame.event.post(pygame.event.Event(EARTH_DAMAGED, {'damage': self.getValue('damage')}))
