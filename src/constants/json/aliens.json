@@ -37,6 +37,6 @@
         "cost": 5,
         "income": 5,
         "healing": false,
-        "sprite_path": "/assets/images/miner.png"
+        "sprite_path": "/assets/images/miner_alien.png"
     }
 }

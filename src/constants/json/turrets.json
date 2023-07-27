@@ -5,7 +5,8 @@
         "speed": 100.0,
         "cost": 5,
         "range": 10.0,
-        "income": 1
+        "income": 1,
+        "sprite_path": "/assets/images/laser.png"
     },
     "AOE": {
         "name": "EMP",
@@ -13,7 +14,8 @@
         "speed": 10.0,
         "cost": 20,
         "range": 5.0,
-        "income": 1
+        "income": 1,
+        "sprite_path": "/assets/images/emp.png"
     },
     "ECON": {
         "name": "Miner",
@@ -21,6 +23,7 @@
         "speed": 100.0,
         "cost": 10,
         "range": 10.0,
-        "income": 5
+        "income": 5,
+        "sprite_path": "/assets/images/miner_turret.png"
     }
 }
