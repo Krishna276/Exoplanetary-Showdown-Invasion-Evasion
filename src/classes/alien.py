@@ -5,7 +5,7 @@ from enum import Enum
 import pygame
 
 from src.classes.vector import FloatVector, Vector
-from src.constants import ALIENS
+from src.constants import ALIENS, BF_TILE_LENGTH
 from src.functions.directions import getDirection
 from src.game.events import EARTH_DAMAGED
 
@@ -31,7 +31,7 @@ class Alien(pygame.sprite.Sprite):
         if self.health <= 0:
             self.kill()
             return
-        direction: Vector | None = getDirection(FloatVector(self.rect.x, self.rect.y), path)
+        direction: Vector | None = getDirection(Vector(self.rect.x, self.rect.y) / BF_TILE_LENGTH, path)
         if direction is None:
             pygame.event.post(pygame.event.Event(EARTH_DAMAGED, {'damage': self.getValue('damage')}))
             self.kill()
