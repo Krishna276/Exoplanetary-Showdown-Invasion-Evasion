@@ -2,7 +2,10 @@
 
 from enum import Enum
 
-import pygame
+from pygame import RLEACCEL, Surface
+from pygame.event import post as post_event, Event
+from pygame.image import load
+from pygame.sprite import Sprite
 
 from src.classes.vector import FloatVector, Vector
 from src.constants import ALIENS, BF_TILE_LENGTH
@@ -16,15 +19,15 @@ class AlienType(Enum):
     HEALER = 2
     ECON = 3
 
-class Alien(pygame.sprite.Sprite):
+class Alien(Sprite):
     """An alien on the map."""
     def __init__(self, type: AlienType, position: FloatVector, *groups) -> None:
         super().__init__(*groups)
         self.type: AlienType = type
         self.health: float = self.getValue('max_health')
         self.speedEffect: float = 1.0
-        self.surf: pygame.Surface = pygame.image.load(self.getValue('sprite_path')).convert()
-        self.surf.set_colorkey('#00000000', pygame.RLEACCEL)
+        self.surf: Surface = load(self.getValue('sprite_path')).convert()
+        self.surf.set_colorkey('#00000000', RLEACCEL)
         self.rect = self.surf.get_rect(center=(position.x, position.y))
     
     def update(self, dt: int, path: list[Vector]) -> None:
@@ -33,7 +36,7 @@ class Alien(pygame.sprite.Sprite):
             return
         direction: Vector | None = getDirection(Vector(self.rect.x, self.rect.y) / BF_TILE_LENGTH, path)
         if direction is None:
-            pygame.event.post(pygame.event.Event(EARTH_DAMAGED, {'damage': self.getValue('damage')}))
+            post_event(Event(EARTH_DAMAGED, {'damage': self.getValue('damage')}))
             self.kill()
             return
         velocity: FloatVector = direction * self.getValue('speed') * self.speedEffect
