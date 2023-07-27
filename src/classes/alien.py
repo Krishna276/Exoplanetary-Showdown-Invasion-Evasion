@@ -2,9 +2,9 @@
 
 from enum import Enum
 
-from pygame import RLEACCEL, Surface
+from pygame import Rect, RLEACCEL, Surface
 from pygame.event import post as post_event, Event
-from pygame.image import load
+from pygame.image import load as load_image
 from pygame.sprite import Sprite
 
 from src.classes.vector import FloatVector, Vector
@@ -26,9 +26,9 @@ class Alien(Sprite):
         self.type: AlienType = type
         self.health: float = self.getValue('max_health')
         self.speedEffect: float = 1.0
-        self.surf: Surface = load(self.getValue('sprite_path')).convert()
+        self.surf: Surface = load_image(self.getValue('sprite_path')).convert()
         self.surf.set_colorkey('#00000000', RLEACCEL)
-        self.rect = self.surf.get_rect(center=(position.x, position.y))
+        self.rect: Rect = self.surf.get_rect(center=(position.x * BF_TILE_LENGTH, position.y * BF_TILE_LENGTH))
     
     def update(self, dt: int, path: list[Vector]) -> None:
         if self.health <= 0:

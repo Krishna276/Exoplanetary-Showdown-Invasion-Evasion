@@ -3,7 +3,7 @@
 from pygame import init as init_pygame, Surface, QUIT
 from pygame.display import flip as flip_display, set_caption, set_icon, set_mode
 from pygame.event import get
-from pygame.image import load
+from pygame.image import load as load_image
 from pygame.sprite import Group
 from pygame.time import Clock, get_ticks
 from pygame_gui import UIManager
@@ -18,7 +18,7 @@ class Game:
             (WINDOW_WIDTH, WINDOW_HEIGHT)
         )
         set_caption('Exoplanetary Showdown: Invasion Evasion')
-        # set_icon(load(ROOT + GAME_SETTINGS['window']['icon']).convert())
+        # set_icon(load_image(ROOT + GAME_SETTINGS['window']['icon']).convert())
         self.aliens: Group = Group()
         self.turrets: Group = Group()
         self.all_sprites: Group = Group()
