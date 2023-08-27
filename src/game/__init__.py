@@ -1,5 +1,7 @@
 """Module that provides the class that runs the game."""
 
+from enum import Enum
+
 from pygame import init as init_pygame, Surface, QUIT
 from pygame.display import flip as flip_display, set_caption, set_icon, set_mode
 from pygame.event import get
@@ -9,6 +11,13 @@ from pygame.time import Clock, get_ticks
 from pygame_gui import UIManager
 
 from src.constants import ROOT, WINDOW_HEIGHT, WINDOW_WIDTH
+
+class Phase(Enum):
+    """The game phases."""
+    INIT = 0
+    DEF = 1
+    ATK = 2
+    ELIMINATION = 3
 
 class Game:
     """A class that runs the game."""
@@ -27,6 +36,7 @@ class Game:
         )
         self.clock: Clock = Clock()
         self.running: bool = True
+        self.phase: Phase = Phase.INIT
     
     def _kill(self) -> None:
         self.running = False
