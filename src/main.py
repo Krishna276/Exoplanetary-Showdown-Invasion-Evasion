@@ -2,7 +2,7 @@
 
 A game made by CoDerection.
 
-This code is open-source and available on the following GitHub repository:
+This code is distributed open-source and available on the following GitHub repository:
 
 [Krishna276/Exoplanetary-Showdown-Invasion-Evasion]\
 (https://github.com/Krishna276/Exoplanetary-Showdown-Invasion-Evasion)
@@ -11,9 +11,10 @@ This code is open-source and available on the following GitHub repository:
 from sys import path
 
 from constants import ROOT
-from game import Game
 
 path.append(ROOT)
+
+from game import Game
 
 def main() -> None:
     """Run the program."""
