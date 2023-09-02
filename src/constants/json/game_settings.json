@@ -17,5 +17,8 @@
         "height": 1080,
         "icon": "/assets/images/window_icon.png",
         "scale": 0.5
+    },
+    "asset_loading": {
+        "unkown_texture": "/assets/images/unkown.png"
     }
 }
