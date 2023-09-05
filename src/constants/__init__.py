@@ -36,4 +36,7 @@ BF_GRID_HEIGHT: int = GAME_SETTINGS['battlefield']['height']
 
 BF_TILE_LENGTH: int = int(GAME_SETTINGS['battlefield_surface']['tile_length'] * _scale)
 
+BORDER_WIDTH: int = (WINDOW_WIDTH - BF_GRID_WIDTH * BF_TILE_LENGTH) // 2
+BORDER_HEIGHT: int = (WINDOW_HEIGHT - BF_GRID_HEIGHT * BF_TILE_LENGTH) // 2
+
 UNKOWN_TEXTURE: str = GAME_SETTINGS['asset_loading']['unkown_texture']
