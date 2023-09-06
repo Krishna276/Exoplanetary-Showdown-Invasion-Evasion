@@ -16,10 +16,10 @@ TURRETS: dict = {}
 ROOT = str(Path(__file__).parent.parent.parent.absolute())
 
 with (
-    open(ROOT + '/src/constants/json/aliens.json', 'r', encoding='UTF-8') as aliens,
-    open(ROOT + '/src/constants/json/game_settings.json', 'r', encoding='UTF-8') as game_settings,
-    open(ROOT + '/src/constants/json/tiles.json', 'r', encoding='UTF-8') as tiles,
-    open(ROOT + '/src/constants/json/turrets.json', 'r', encoding='UTF-8') as turrets
+    open(ROOT + '/assets/settings/aliens.json', 'r', encoding='UTF-8') as aliens,
+    open(ROOT + '/assets/settings/game_settings.json', 'r', encoding='UTF-8') as game_settings,
+    open(ROOT + '/assets/settings/tiles.json', 'r', encoding='UTF-8') as tiles,
+    open(ROOT + '/assets/settings/turrets.json', 'r', encoding='UTF-8') as turrets
 ):
     ALIENS = load(aliens)
     GAME_SETTINGS = load(game_settings)

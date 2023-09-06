@@ -147,7 +147,11 @@ class Vector(_BaseVector):
     
     def __mul__(self: Self, other):
         if isinstance(other, int):
-            return Vector(self._x * other, self._y * other, self._max_x * other, self._max_y * other)
+            return Vector(
+                self._x * other, self._y * other,
+                None if self._max_x is None else self._max_x * other,
+                None if self._max_y is None else self._max_y * other
+            )
         elif isinstance(other, float):
             return FloatVector(self._x * other, self._y * other, self._max_x, self._max_y)
         raise TypeError('The only supported types for vector multiplication are ints and floats.')

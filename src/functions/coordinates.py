@@ -1,7 +1,7 @@
 """Allows the two coordinate systems used in this game to co-exist."""
 
 from src.classes.vector import Vector, FloatVector
-from src.constants import BF_TILE_LENGTH, BORDER_HEIGHT, BORDER_WIDTH
+from src.constants import BF_TILE_LENGTH, BORDER_HEIGHT, BORDER_WIDTH, WINDOW_HEIGHT, WINDOW_WIDTH
 
 _offset: Vector = Vector(BORDER_WIDTH, BORDER_HEIGHT)
 
@@ -14,9 +14,11 @@ def convert2pg(coords: Vector | FloatVector) -> Vector:
     Returns:
         Vector: On-screen pygame coordinates.
     """
-    result = coords * BF_TILE_LENGTH + _offset
-    if isinstance(result, FloatVector):
-        return result.toVector()
+    result: Vector = Vector(
+        int(coords.x * BF_TILE_LENGTH + _offset.x),
+        int(coords.y * BF_TILE_LENGTH + _offset.y),
+        WINDOW_WIDTH, WINDOW_HEIGHT
+    )
     return result
 
 def convert2grid(coords: Vector) -> FloatVector:
@@ -40,4 +42,4 @@ def convert2grid_vector(coords: Vector) -> Vector:
     Returns:
         Vector: Grid index (integer coordinates of a tile).
     """
-    return convert2grid(coords).toVector()
+    return (coords - _offset) // BF_TILE_LENGTH

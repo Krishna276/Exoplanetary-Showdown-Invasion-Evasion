@@ -14,7 +14,8 @@ from pygame_gui import UIManager
 
 from src.classes.alien import Alien, AlienType
 from src.classes.grid import Grid
-from src.classes.tile import Tile
+from src.classes.tile import Tile, TileType
+from src.classes.tile_sprite import TileSprite
 from src.classes.vector import FloatVector, Vector
 from src.constants import (
     BF_GRID_HEIGHT, BF_GRID_WIDTH, BF_TILE_LENGTH, BORDER_HEIGHT, BORDER_WIDTH, GAME_SETTINGS, ROOT, WINDOW_HEIGHT,
@@ -48,8 +49,18 @@ class Game:
         self.map: Grid[Tile]
         self.mothership: Vector
         self.earth: Vector
-        self.map, self.earth, self.mothership = generateMap(BF_GRID_WIDTH, BF_GRID_HEIGHT, '')
+        self.map, self.earth, self.mothership = generateMap(BF_GRID_WIDTH, BF_GRID_HEIGHT, input('Enter seed: '))
         self.alien_path: list[Vector] = self.map.pathfind(self.mothership, self.earth)
+        for x in range(BF_GRID_WIDTH):
+            for y in range(BF_GRID_HEIGHT):
+                if self.map[x, y].tileType not in {TileType.EARTH, TileType.PORTAL}:
+                    sprite: TileSprite = TileSprite(self.map[x, y], Vector(x, y))
+                    self.tile_sprites.add(sprite)
+                    self.all_sprites.add(sprite)
+        for tile in self.mothership, self.earth:
+            sprite: TileSprite = TileSprite(self.map[tile], tile)
+            self.tile_sprites.add(sprite)
+            self.all_sprites.add(sprite)
     
     def _kill(self: Self) -> None:
         self.running = False
@@ -70,14 +81,18 @@ class Game:
             if event.type == QUIT:
                 self._kill()
             elif event.type == KEYUP:
+                alien: Alien | None = None
                 if event.key == K_1:
-                    self.aliens.add(Alien(AlienType.DAMAGE, FloatVector.fromVector(self.mothership)))
+                    alien = Alien(AlienType.DAMAGE, FloatVector.fromVector(self.mothership))
                 elif event.key == K_2:
-                    self.aliens.add(Alien(AlienType.TANK, FloatVector.fromVector(self.mothership)))
+                    alien = Alien(AlienType.TANK, FloatVector.fromVector(self.mothership))
                 elif event.key == K_3:
-                    self.aliens.add(Alien(AlienType.HEALER, FloatVector.fromVector(self.mothership)))
+                    alien = Alien(AlienType.HEALER, FloatVector.fromVector(self.mothership))
                 elif event.key == K_4:
-                    self.aliens.add(Alien(AlienType.ECON, FloatVector.fromVector(self.mothership)))
+                    alien = Alien(AlienType.ECON, FloatVector.fromVector(self.mothership))
+                if alien is not None:
+                    self.aliens.add(alien)
+                    self.all_sprites.add(alien)
             self.ui_manager.process_events(event)
         self.aliens.update(dt, self.alien_path, self.map)
         self._draw_grid()

@@ -2,7 +2,7 @@
 
 from functools import singledispatchmethod
 from heapq import heappop, heappush
-from typing import Generic, TypeVar
+from typing import Generic, Iterator, Self, TypeVar
 
 from src.classes.exceptions import VectorOutOfBoundsError
 from src.classes.vector import Vector, VECTOR_i, VECTOR_j
@@ -65,16 +65,10 @@ class Grid(Generic[_T]):
             raise TypeError('Coordinates passed in are not integers.')
         self[Vector(coords[0], coords[1], self.width, self.height)] = value
 
-    def __iter__(self):
-        self._iter_x: int = -1
-        self._iter_y: int = -1
-        return self
-
-    def __next__(self) -> _T:
-        self._iter_x = (self._iter_x + 1) % self.width
-        if self._iter_x == 0:
-            self._iter_y = (self._iter_y + 1) % self.height
-        return self._iter_y, self._iter_x, self[Vector(self._iter_x, self._iter_y)]
+    def __iter__(self: Self) -> Iterator[_T]:
+        for x in range(self.width):
+            for y in range(self.height):
+                yield self[x, y]
 
     @property
     def width(self) -> int:
