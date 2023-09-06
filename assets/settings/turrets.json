@@ -6,7 +6,7 @@
         "cost": 5,
         "range": 10.0,
         "income": 1,
-        "sprite_path": "/assets/images/laser.png"
+        "sprite_path": "/assets/images/direct.png"
     },
     "AOE": {
         "name": "EMP",
@@ -15,7 +15,7 @@
         "cost": 20,
         "range": 5.0,
         "income": 1,
-        "sprite_path": "/assets/images/emp.png"
+        "sprite_path": "/assets/images/aoe.png"
     },
     "ECON": {
         "name": "Farm",
@@ -24,6 +24,6 @@
         "cost": 10,
         "range": 10.0,
         "income": 5,
-        "sprite_path": "/assets/images/farm.png"
+        "sprite_path": "/assets/images/econ.png"
     }
 }
