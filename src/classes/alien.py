@@ -4,13 +4,16 @@ from enum import Enum
 
 from pygame import Rect, RLEACCEL, Surface
 from pygame.event import post as post_event, Event
-from pygame.image import load as load_image
 from pygame.sprite import Sprite
 
+from src.classes.grid import Grid
+from src.classes.tile import Tile
 from src.classes.vector import FloatVector, Vector
-from src.constants import ALIENS, BF_TILE_LENGTH
+from src.constants import ALIENS, TILES
+from src.constants.events import EARTH_DAMAGED
+from src.functions.coordinates import convert2grid_vector, convert2pg
 from src.functions.directions import getDirection
-from src.game.events import EARTH_DAMAGED
+from src.functions.load_asset import load_image
 
 class AlienType(Enum):
     """A type of Alien."""
@@ -25,21 +28,22 @@ class Alien(Sprite):
         super().__init__(*groups)
         self.type: AlienType = type
         self.health: float = self.getValue('max_health')
-        self.speedEffect: float = 1.0
-        self.surf: Surface = load_image(self.getValue('sprite_path')).convert()
+        self.surf: Surface = load_image(self.getValue('sprite_path'))
         self.surf.set_colorkey('#00000000', RLEACCEL)
-        self.rect: Rect = self.surf.get_rect(center=(position.x * BF_TILE_LENGTH, position.y * BF_TILE_LENGTH))
+        self.rect: Rect = self.surf.get_rect(center=tuple(i for i in convert2pg(position)))
     
-    def update(self, dt: int, path: list[Vector]) -> None:
+    def update(self, dt: int, path: list[Vector], grid: Grid[Tile]) -> None:
         if self.health <= 0:
             self.kill()
             return
-        direction: Vector | None = getDirection(Vector(self.rect.x, self.rect.y) / BF_TILE_LENGTH, path)
+        currentTile: Vector = convert2grid_vector(Vector(self.rect.x, self.rect.y))
+        direction: Vector | None = getDirection(currentTile, path)
+        speedEffect: float = TILES[grid[currentTile].tileType.name]['speed']
         if direction is None:
             post_event(Event(EARTH_DAMAGED, {'damage': self.getValue('damage')}))
             self.kill()
             return
-        velocity: FloatVector = direction * self.getValue('speed') * self.speedEffect
+        velocity: FloatVector = direction * self.getValue('speed') * speedEffect
         self.rect.move_ip(velocity.x * dt, velocity.y * dt)
 
     
@@ -52,5 +56,5 @@ class Alien(Sprite):
         Returns:
             Any: The value of that key, as whatever data type it is.
         """
-        return ALIENS[self._type.name][key]
+        return ALIENS[self.type.name][key]
 

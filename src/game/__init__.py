@@ -3,17 +3,19 @@
 from enum import Enum
 from typing import Self
 
-from pygame import init as init_pygame, Surface, QUIT
+from pygame import init as init_pygame, KEYUP, Surface, QUIT
 from pygame.display import flip as flip_display, set_caption, set_icon, set_mode
 from pygame.draw import line as draw_line
 from pygame.event import get as get_events
+from pygame.locals import K_1, K_2, K_3, K_4
 from pygame.sprite import Group
 from pygame.time import Clock, get_ticks
 from pygame_gui import UIManager
 
+from src.classes.alien import Alien, AlienType
 from src.classes.grid import Grid
 from src.classes.tile import Tile
-from src.classes.vector import Vector
+from src.classes.vector import FloatVector, Vector
 from src.constants import (
     BF_GRID_HEIGHT, BF_GRID_WIDTH, BF_TILE_LENGTH, BORDER_HEIGHT, BORDER_WIDTH, GAME_SETTINGS, ROOT, WINDOW_HEIGHT,
     WINDOW_WIDTH
@@ -47,6 +49,7 @@ class Game:
         self.mothership: Vector
         self.earth: Vector
         self.map, self.earth, self.mothership = generateMap(BF_GRID_WIDTH, BF_GRID_HEIGHT, '')
+        self.alien_path: list[Vector] = self.map.pathfind(self.mothership, self.earth)
     
     def _kill(self: Self) -> None:
         self.running = False
@@ -66,7 +69,17 @@ class Game:
         for event in get_events():
             if event.type == QUIT:
                 self._kill()
+            elif event.type == KEYUP:
+                if event.key == K_1:
+                    self.aliens.add(Alien(AlienType.DAMAGE, FloatVector.fromVector(self.mothership)))
+                elif event.key == K_2:
+                    self.aliens.add(Alien(AlienType.TANK, FloatVector.fromVector(self.mothership)))
+                elif event.key == K_3:
+                    self.aliens.add(Alien(AlienType.HEALER, FloatVector.fromVector(self.mothership)))
+                elif event.key == K_4:
+                    self.aliens.add(Alien(AlienType.ECON, FloatVector.fromVector(self.mothership)))
             self.ui_manager.process_events(event)
+        self.aliens.update(dt, self.alien_path, self.map)
         self._draw_grid()
         for entity in self.all_sprites:
             self.screen.blit(entity.surf, entity.rect)

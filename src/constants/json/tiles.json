@@ -2,51 +2,71 @@
     "VACUUM": {
         "name": "Vacuum",
         "cost": 3,
-        "allows_turrets": true
+        "allows_turrets": true,
+        "speed": 1.0,
+        "file": "/assets/images/vacuum.png"
     },
     "EARTH": {
         "name": "Earth",
         "cost": 0,
-        "allows_turrets": false
+        "allows_turrets": false,
+        "speed": 1.0,
+        "file": "/assets/images/earth.png"
     },
     "PORTAL": {
         "name": "Mothership",
         "cost": 0,
-        "allows_turrets": false
+        "allows_turrets": false,
+        "speed": 1.0,
+        "file": "/assets/images/portal.png"
     },
     "SLOWNESS": {
         "name": "Slowness",
         "cost": 9,
-        "allows_turrets": true
+        "allows_turrets": true,
+        "speed": 0.33,
+        "file": "/assets/images/slowness.png"
     },
     "SPEED": {
         "name": "Speed",
         "cost": 1,
-        "allows_turrets": true
+        "allows_turrets": true,
+        "speed": 3.0,
+        "file": "/assets/images/speed.png"
     },
     "IMMUNITY": {
         "name": "No damage",
         "cost": 0,
-        "allows_turrets": true
+        "allows_turrets": true,
+        "speed": 1.0,
+        "file": "/assets/images/immunity.png"
     },
     "DAMAGE": {
         "name": "Hazard",
         "cost": 10,
-        "allows_turrets": true
+        "allows_turrets": true,
+        "speed": 1.0,
+        "file": "/assets/images/damage.png"
     },
     "NO_TURRET": {
         "name": "No Turret",
         "cost": 3,
-        "allows_turrets": false
+        "allows_turrets": false,
+        "speed": 1.0,
+        "file": "/assets/images/no_turret.png"
     },
     "NO_ALIEN": {
         "name": "No Alien",
         "cost": null,
-        "allows_turrets": true
+        "allows_turrets": true,
+        "speed": 0.0,
+        "file": "/assets/images/no_alien.png"
     },
     "BLOCK": {
         "name": "Asteroid",
         "cost": null,
-        "allows_turrets": false
+        "allows_turrets": false,
+        "speed": 0.0,
+        "file": "/assets/images/block.png"
     }
 }

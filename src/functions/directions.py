@@ -1,8 +1,8 @@
 """A module that provides directions at any given instant in time for aliens."""
 
-from src.classes.vector import FloatVector, Vector
+from src.classes.vector import Vector
 
-def getDirection(location: FloatVector, path: list[Vector]) -> Vector | None:
+def getDirection(currentTileCoords: Vector, path: list[Vector]) -> Vector | None:
     """Given a path to follow and current precise location, get the direction to go next.
 
     Args:
@@ -12,7 +12,6 @@ def getDirection(location: FloatVector, path: list[Vector]) -> Vector | None:
     Returns:
         Vector | None: Returns a vector of the direction to go in, or None if it it at the end of the path (Earth).
     """
-    currentTileCoords: Vector = location.toVector()
     try:
         nextTileCoords: Vector = path[path.index(currentTileCoords) + 1]
     except IndexError:

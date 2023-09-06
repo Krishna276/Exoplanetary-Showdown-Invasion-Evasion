@@ -15,7 +15,7 @@ def load_image(path: str) -> Surface:
         Surface: A pygame Surface (this function is a wrapper for pygame.image.load).
     """
     try:
-        return load_pygame_image(ROOT + path)
+        return load_pygame_image(ROOT + path).convert()
     except FileNotFoundError:
-        return load_pygame_image(ROOT + UNKOWN_TEXTURE)
+        return load_pygame_image(ROOT + UNKOWN_TEXTURE).convert()
 

@@ -36,6 +36,9 @@ class _BaseVector(ABC):
             return False
         return self._x == other.x and self._y == other.y
     
+    def __hash__(self: Self) -> int:
+        return hash((self._x, self._y))
+    
     def __truediv__(self: Self, other):
         if isinstance(other, (int, float)):
             return FloatVector(self._x / other, self._y / other, self._max_x, self._max_y)
@@ -135,9 +138,6 @@ class Vector(_BaseVector):
     def __repr__(self: Self) -> str:
         return f'Vector({self._x}, {self._y}, {self._max_x}, {self._max_y})'
 
-    def __hash__(self: Self) -> int:
-        return hash((self._x, self._y))
-
     def __add__(self: Self, other) -> Self:
         if isinstance(other, Vector):
             return Vector(self._x + other.x, self._y + other.y, self._max_x, self._max_y)
@@ -147,7 +147,7 @@ class Vector(_BaseVector):
     
     def __mul__(self: Self, other):
         if isinstance(other, int):
-            return Vector(self._x * other, self._y * other, self._max_x, self._max_y)
+            return Vector(self._x * other, self._y * other, self._max_x * other, self._max_y * other)
         elif isinstance(other, float):
             return FloatVector(self._x * other, self._y * other, self._max_x, self._max_y)
         raise TypeError('The only supported types for vector multiplication are ints and floats.')
@@ -227,7 +227,11 @@ class FloatVector(_BaseVector):
         return FloatVector(vector.x, vector.y, vector.max_x, vector.max_y)
     
     def toVector(self: Self) -> Vector:
-        return Vector(int(self._x), int(self._y), int(self._max_x), int(self._max_y))
+        return Vector(
+            int(self._x), int(self._y),
+            None if self._max_x is None else int(self._max_x),
+            None if self._max_y is None else int(self._max_y)
+        )
     
     @property
     def _outOfBounds(self: Self) -> bool:
@@ -276,7 +280,11 @@ class FloatVector(_BaseVector):
     
     def __mul__(self: Self, other) -> Self:
         if isinstance(other, (float, int)):
-            return FloatVector(self._x * other, self._y * other, self._max_x, self._max_y)
+            return FloatVector(
+                self._x * other, self._y * other,
+                None if self._max_x is None else self._max_x * other,
+                None if self._max_y is None else self._max_y * other
+            )
         raise TypeError('The only supported types for vector multiplication are integers or floats.')
     
     def __rmul__(self: Self, other):
