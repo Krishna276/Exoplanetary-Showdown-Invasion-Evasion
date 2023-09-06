@@ -14,9 +14,8 @@ Or CCS for short.
 ## Commenting Code
 ### Variable Declarations
 * Instead of using comments to state variable data types, use type annotations. Not only do these make the data type clear to humans, but to the computer as well. The code completion in many IDEs likes it that way too, so it can lead to faster development.
-* Don't import a new module just to do this though.
+* Don't import a new module just to do this though (except for `typing`).
 * Try to be as specific as possible without violating the rule above. The intention of `myNumbers: list[int]` is much clearer than `myNumbers: list`.
-* Don't annotate `self` or `cls`, the interpreter knows what you mean already.
 ### Documentation
 * Always give public modules, classes and functions a docstring.
 * It's much easier if you write the function's signature, including any type annotations, first.
@@ -116,7 +115,6 @@ if fourDimensionalArray[1][2][3][4] == 0\
     print('What a coincidence.')
 
 # Another way to express the long condition, note that the bracket rules apply here.
-# This way is actually preferrd in this case.
 if (
     fourDimensionalArray[1][2][3][4] == 0
     and fourDimensionalArray[4][3][2][1] == 100
@@ -127,7 +125,7 @@ if (
 ```
 ## Imports
 * Import only the functions you need, an exception to this is if you are importing a module from within this project, and all of the module is needed, then `from <module> import *` can be accepted, but under no other circumstances.
-* For all standard library modules or pip installed modules, use `from <module> import <needed_things>`.
+* For all standard library modules or pip installed modules, use `from <module> import <needed_things>`. This is more efficient than using dot notation.
 ```python
 from random import randint
 from sys import stdout
@@ -164,6 +162,6 @@ Mostly consistent with PEP 8, but use camelCase for functions, to easily tell th
 |Functions and methods (excluding properties)|camelCase|
 |Variables (excluding type variables), arguments, fields and properties|snake_case|
 |Constants and enum values|ALL_CAPS|
-|First argument of any instance method|`self`|
+|First argument of an instance method|`self`|
 |First argument of a class method|`cls`|
 |Any non-public identifier|`_` + conventional name|\
