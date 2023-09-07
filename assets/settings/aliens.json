@@ -1,0 +1,42 @@
+{
+    "DAMAGE": {
+        "name": "Frigate",
+        "damage": 100.0,
+        "max_health": 1.0,
+        "speed": 2.0,
+        "cost": 5,
+        "income": 1,
+        "healing": false,
+        "sprite_path": "/assets/images/frigate.png"
+    },
+    "TANK": {
+        "name": "Cruiser",
+        "damage": 50.0,
+        "max_health": 300.0,
+        "speed": 1.0,
+        "cost": 20,
+        "income": 1,
+        "healing": false,
+        "sprite_path": "/assets/images/tank.png"
+    },
+    "HEALER": {
+        "name": "Medic",
+        "damage": 0.0,
+        "max_health": 100.0,
+        "speed": 1.5,
+        "cost": 15,
+        "income": 1,
+        "healing": true,
+        "sprite_path": "/assets/images/medic.png"
+    },
+    "ECON": {
+        "name": "Miner",
+        "damage": 50.0,
+        "max_health": 1.0,
+        "speed": 1.5,
+        "cost": 5,
+        "income": 5,
+        "healing": false,
+        "sprite_path": "/assets/images/miner.png"
+    }
+}
