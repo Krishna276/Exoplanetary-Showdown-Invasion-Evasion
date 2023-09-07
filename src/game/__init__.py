@@ -40,7 +40,7 @@ class Game:
         init_pygame()
         self.screen: Surface = set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
         set_caption('Exoplanetary Showdown: Invasion Evasion')
-        set_icon(load_image(ROOT + GAME_SETTINGS['window']['icon']).convert())
+        set_icon(load_image(GAME_SETTINGS['window']['icon']).convert())
         self.aliens: Group = Group()
         self.turrets: Group = Group()
         self.all_sprites: Group = Group()
