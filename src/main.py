@@ -27,4 +27,7 @@ def main() -> None:
     game.play()
 
 if __name__ == '__main__':
-    main()
+    try:
+        main()
+    finally:
+        print('Program Terminated.')
