@@ -24,7 +24,7 @@
         "name": "Slowness",
         "cost": 9,
         "allows_turrets": true,
-        "speed": 0.33,
+        "speed": 0.6,
         "file": "/assets/images/slowness.png"
     },
     "SPEED": {
