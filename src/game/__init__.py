@@ -8,8 +8,8 @@ from pygame import init as init_pygame, KEYDOWN, KEYUP, Surface, QUIT
 from pygame.display import flip as flip_display, set_caption, set_icon, set_mode
 from pygame.draw import line as draw_line
 from pygame.event import get as get_events
-from pygame.key import get_pressed as get_pressed_keys
-from pygame.locals import K_1, K_2, K_3, K_4, K_LSHIFT
+from pygame.key import get_pressed as get_pressed_keys, ScancodeWrapper
+from pygame.locals import K_1, K_2, K_3, K_4, K_TAB
 from pygame.sprite import Group
 from pygame.time import Clock, get_ticks
 from pygame_gui import UIManager
@@ -92,7 +92,7 @@ class Game:
             if event.type == QUIT:
                 self._kill()
             elif event.type == KEYDOWN:
-                if event.key == K_LSHIFT:
+                if event.key == K_TAB:
                     self.all_sprites.add(self.path_highlight)
             elif event.type == KEYUP:
                 if self.phase == Phase.ATK:
@@ -108,12 +108,14 @@ class Game:
                     if alien is not None:
                         self.aliens.add(alien)
                         self.all_sprites.add(alien)
-                if event.key == K_LSHIFT:
+                if event.key == K_TAB:
                     self.all_sprites.remove(self.path_highlight)
             self.ui_manager.process_events(event)
+        pressed_keys: ScancodeWrapper = get_pressed_keys()
         self.aliens.update(dt, self.alien_path, self.map)
         self.screen.fill('#000000')
-        self._draw_grid()
+        if pressed_keys[K_TAB]:
+            self._draw_grid()
         for entity in self.all_sprites:
             self.screen.blit(entity.surf, entity.rect)
         self.ui_manager.update(get_ticks())
