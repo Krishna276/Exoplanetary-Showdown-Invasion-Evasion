@@ -153,7 +153,11 @@ class Vector(_BaseVector):
                 None if self._max_y is None else self._max_y * other
             )
         elif isinstance(other, float):
-            return FloatVector(self._x * other, self._y * other, self._max_x, self._max_y)
+            return FloatVector(
+                self._x * other, self._y * other,
+                None if self._max_x is None else self._max_x * other,
+                None if self._max_y is None else self._max_y * other
+            )
         raise TypeError('The only supported types for vector multiplication are ints and floats.')
     
     def __rmul__(self: Self, other) -> Self:
@@ -163,7 +167,7 @@ class Vector(_BaseVector):
         return Vector(-self._x, -self._y)
     
     def __sub__(self: Self, other) -> Self:
-        return self + -other
+        return -other + self
     
     def __floordiv__(self: Self, other):
         if isinstance(other, int):
@@ -298,7 +302,7 @@ class FloatVector(_BaseVector):
         return FloatVector(-self._x, -self._y)
     
     def __sub__(self: Self, other) -> Self:
-        return self + -other
+        return -other + self
     
     def __floordiv__(self: Self, other) -> Self:
         if isinstance(other, (float, int)):
