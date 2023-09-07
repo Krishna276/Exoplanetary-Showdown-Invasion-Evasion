@@ -32,7 +32,7 @@ def compliment(hex_color: str) -> str:
     return '#%02X%02X%02X' % tuple(255 - i for i in tuple(int(hex_color[i:i + 2], 16) for i in range(1, 7, 2)))
 
 layout = [
-    [Text('Visual Map Generator')],
+    [Text('Visual Map Generator for Exoplanetary Showdown: Invasion Evasion')],
     [Text('Not part of the actual game, but this is only to visualise the map generation and pathfinding algorithms.')],
     [Frame('Map', [[
         Text('    ', background_color=getColour(j, i), key=f'-{i},{j}-') for j in range(BF_GRID_WIDTH)
@@ -44,7 +44,7 @@ layout = [
 ]
 
 # Create a PySimpleGUI window
-window: Window = Window('Visual Map Generation', layout=layout)
+window: Window = Window('ES:IE - Visual Map Generation', layout=layout)
 
 # Run the PySimpleGUI event loop
 while True:

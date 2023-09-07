@@ -8,7 +8,7 @@ This code is distributed open-source and available on the following GitHub repos
 (https://github.com/Krishna276/Exoplanetary-Showdown-Invasion-Evasion)
 """
 
-from sys import path
+from sys import argv, path
 
 from constants import ROOT
 
@@ -18,7 +18,12 @@ from game import Game
 
 def main() -> None:
     """Run the program."""
-    game: Game = Game()
+    seed: str | None = None
+    while argv:
+        option: str = argv.pop(0)
+        if option == '-s':
+            seed = argv.pop(0)
+    game: Game = Game(seed)
     game.play()
 
 if __name__ == '__main__':
