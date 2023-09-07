@@ -4,7 +4,7 @@
         "height": 9,
         "cluster_density": 0.15,
         "cluster_expansion_probability": 0.25,
-        "alien_move_speed_multiplier": 0.075,
+        "alien_move_speed_multiplier": 100.0,
         "tile_highlight_texture": "/assets/images/tile_highlight.png"
     },
     "game": {
@@ -18,7 +18,7 @@
         "width": 1920,
         "height": 1080,
         "icon": "/assets/images/window_icon.png",
-        "scale": 0.5
+        "scale": 0.75
     },
     "asset_loading": {
         "unkown_texture": "/assets/images/unkown.png"

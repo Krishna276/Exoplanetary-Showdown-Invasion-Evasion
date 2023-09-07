@@ -1,6 +1,7 @@
 """A module that provides the Alien class, along with other related things."""
 
 from enum import Enum
+from random import random
 
 from pygame import Rect, RLEACCEL, Surface
 from pygame.event import post as post_event, Event
@@ -8,7 +9,7 @@ from pygame.sprite import Sprite
 from pygame.transform import scale
 
 from src.classes.grid import Grid
-from src.classes.tile import Tile
+from src.classes.tile import Tile, TileType
 from src.classes.vector import FloatVector, Vector, VECTOR_i, VECTOR_j
 from src.constants import ALIENS, ALIEN_SPEED_MULTIPLIER, BF_TILE_LENGTH, TILES
 from src.constants.events import EARTH_DAMAGED
@@ -36,18 +37,23 @@ class Alien(Sprite):
         )
     
     def update(self, dt: int, path: list[Vector], grid: Grid[Tile]) -> None:
+        currentTile: Vector = convert2grid_vector(Vector(self.rect.centerx, self.rect.centery))
+        if grid[currentTile].tileType == TileType.DAMAGE:
+            self.health -= 1
         if self.health <= 0:
             self.kill()
             return
-        currentTile: Vector = convert2grid_vector(Vector(self.rect.centerx, self.rect.centery))
         direction: Vector | None = getDirection(currentTile, path)
         speedEffect: float = TILES[grid[currentTile].tileType.name]['speed']
         if direction is None:
             post_event(Event(EARTH_DAMAGED, {'damage': self.getValue('damage')}))
             self.kill()
             return
-        velocity: FloatVector = direction * self.getValue('speed') * speedEffect * ALIEN_SPEED_MULTIPLIER
-        self.rect.move_ip(velocity.x * dt, velocity.y * dt)
+        speed: float = self.getValue('speed') * speedEffect * ALIEN_SPEED_MULTIPLIER
+        if speed < 1 and random() < speed:
+            speed = 1
+        velocity: FloatVector = direction * speed
+        self.rect.move_ip(velocity.x * dt / 1000, velocity.y * dt / 1000)
 
     
     def getValue(self, key: str):
