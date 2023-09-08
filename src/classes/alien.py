@@ -57,6 +57,24 @@ class Alien(Sprite):
             speed = 1
         velocity: FloatVector = direction * speed
         self.rect.move_ip(velocity.x * dt / 1000, velocity.y * dt / 1000)
+    
+    def updateNew(self: Self, dt: int, grid: Grid[Tile]) -> None:
+        currentTile: Vector = convert2grid_vector(Vector(self.rect.centerx, self.rect.centery))
+        if grid[currentTile].tileType == TileType.DAMAGE:
+            self.health -= 1
+        if self.health <= 0:
+            self.kill()
+            return
+        speedEffect: float = TILES[grid[currentTile].tileType.name]['speed']
+        speed: float = self.getValue('speed') * speedEffect * ALIEN_SPEED_MULTIPLIER
+        if speed < 1 and random() < speed:
+            speed = 1
+        direction: Vector = currentTile - self.target
+        if direction == VECTOR_0:
+            self.target = self.remainingPath.pop(0)
+            direction = currentTile - self.target
+        velocity: FloatVector = direction * speed
+        self.rect.move_ip(velocity.x * dt / 1000, velocity.y * dt / 1000)
 
 
     
