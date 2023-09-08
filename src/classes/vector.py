@@ -15,6 +15,7 @@ Dot and cross products aren't required by the game and so aren't implemented.
 """
 
 from abc import ABC, abstractmethod
+from cmath import log as ln
 from math import sqrt
 from typing import Iterator, Self
 
@@ -46,11 +47,22 @@ class _BaseVector(ABC):
             return FloatVector(self._x / other, self._y / other, self._max_x, self._max_y)
         raise TypeError('Vector objects only support division by ints or floats.')
     
+    def __complex__(self: Self) -> complex:
+        return self._x + self._y * 1j
+    
     def __abs__(self: Self) -> float:
         return sqrt(FLOATVECTOR_0.s2(self))
     
     def normalise(self: Self):
+        """Returns the normalised vector.
+
+        Returns:
+            FloatVector: The normalised vector (magnitude 1).
+        """
         return self / abs(self)
+    
+    def direction(self: Self) -> float:
+        return ((ln(complex(self)) - ln(abs(self))) / 1j).real
 
     @abstractmethod
     def __repr__(self: Self) -> str:
@@ -248,6 +260,10 @@ class FloatVector(_BaseVector):
             None if self._max_x is None else int(self._max_x),
             None if self._max_y is None else int(self._max_y)
         )
+    
+    @staticmethod
+    def fromComplex(num: complex) -> Self:
+        return FloatVector(num.real, num.imag)
     
     @property
     def _outOfBounds(self: Self) -> bool:
