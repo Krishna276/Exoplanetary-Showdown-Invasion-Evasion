@@ -1,3 +1,5 @@
-Chaos: 20230908075633
+Starting hazard: 20230908075633
 Slow: 4
 Longer path: 2
+Speed: 20230908125429
+Immunity: 20230908125504
