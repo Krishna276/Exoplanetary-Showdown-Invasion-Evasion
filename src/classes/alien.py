@@ -2,6 +2,7 @@
 
 from enum import Enum
 from random import random
+from typing import Self
 
 from pygame import Rect, RLEACCEL, Surface
 from pygame.event import post as post_event, Event
@@ -10,7 +11,7 @@ from pygame.transform import scale
 
 from src.classes.grid import Grid
 from src.classes.tile import Tile, TileType
-from src.classes.vector import FloatVector, Vector, VECTOR_i, VECTOR_j
+from src.classes.vector import FloatVector, Vector, VECTOR_0, VECTOR_i, VECTOR_j
 from src.constants import ALIENS, ALIEN_SPEED_MULTIPLIER, BF_TILE_LENGTH, TILES
 from src.constants.events import EARTH_DAMAGED
 from src.functions.coordinates import convert2grid_vector, convert2pg
@@ -26,7 +27,7 @@ class AlienType(Enum):
 
 class Alien(Sprite):
     """An alien on the map."""
-    def __init__(self, type: AlienType, position: FloatVector, *groups) -> None:
+    def __init__(self, type: AlienType, position: FloatVector, path: list[Vector], *groups) -> None:
         super().__init__(*groups)
         self.type: AlienType = type
         self.health: float = self.getValue('max_health')
@@ -35,15 +36,17 @@ class Alien(Sprite):
         self.rect: Rect = self.surf.get_rect(
             center=tuple(i for i in convert2pg(position) + (BF_TILE_LENGTH // 2) * (VECTOR_i + VECTOR_j))
         )
+        self.remainingPath: list[Vector] = path
+        self.target: Vector = self.remainingPath[0]
     
-    def update(self, dt: int, path: list[Vector], grid: Grid[Tile]) -> None:
+    def update(self, dt: int, grid: Grid[Tile]) -> None:
         currentTile: Vector = convert2grid_vector(Vector(self.rect.centerx, self.rect.centery))
         if grid[currentTile].tileType == TileType.DAMAGE:
             self.health -= 1
         if self.health <= 0:
             self.kill()
             return
-        direction: Vector | None = getDirection(currentTile, path)
+        direction: Vector | None = getDirection(currentTile, self.remainingPath)
         speedEffect: float = TILES[grid[currentTile].tileType.name]['speed']
         if direction is None:
             post_event(Event(EARTH_DAMAGED, {'damage': self.getValue('damage')}))
@@ -54,6 +57,7 @@ class Alien(Sprite):
             speed = 1
         velocity: FloatVector = direction * speed
         self.rect.move_ip(velocity.x * dt / 1000, velocity.y * dt / 1000)
+
 
     
     def getValue(self, key: str):

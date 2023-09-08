@@ -109,16 +109,17 @@ class Game:
                     self.all_sprites.add(self.path_highlight)
             elif event.type == KEYUP:
                 if self.phase == Phase.ATK:
-                    alien: Alien | None = None
+                    alienType: AlienType | None = None
                     if event.key == K_1:
-                        alien = Alien(AlienType.DAMAGE, FloatVector.fromVector(self.mothership))
+                        alienType = AlienType.DAMAGE
                     elif event.key == K_2:
-                        alien = Alien(AlienType.TANK, FloatVector.fromVector(self.mothership))
+                        alienType = AlienType.TANK
                     elif event.key == K_3:
-                        alien = Alien(AlienType.HEALER, FloatVector.fromVector(self.mothership))
+                        alienType = AlienType.HEALER
                     elif event.key == K_4:
-                        alien = Alien(AlienType.ECON, FloatVector.fromVector(self.mothership))
-                    if alien is not None:
+                        alienType = AlienType.ECON
+                    if alienType is not None:
+                        alien = Alien(alienType, FloatVector.fromVector(self.mothership), self.alien_path)
                         self.aliens.add(alien)
                         self.all_sprites.add(alien)
                 if event.key in {K_LALT, K_RALT}:
@@ -127,7 +128,7 @@ class Game:
                     self._kill()
             self.ui_manager.process_events(event)
         pressed_keys: ScancodeWrapper = get_pressed_keys()
-        self.aliens.update(dt, self.alien_path, self.map)
+        self.aliens.update(dt, self.map)
         self.screen.fill('#000000')
         if pressed_keys[K_LALT] or pressed_keys[K_RALT]:
             self._draw_grid()
