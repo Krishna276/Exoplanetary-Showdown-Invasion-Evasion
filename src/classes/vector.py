@@ -18,7 +18,8 @@ from abc import ABC, abstractmethod
 from math import sqrt
 from typing import Iterator, Self
 
-from src.classes.exceptions import VectorOutOfBoundsError
+class VectorOutOfBoundsError(Exception):
+    """Raised when a vector is out of bounds."""
 
 class _BaseVector(ABC):
     """Common base class for all Vectors."""

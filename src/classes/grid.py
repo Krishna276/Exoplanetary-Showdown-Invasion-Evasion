@@ -4,8 +4,7 @@ from functools import singledispatchmethod
 from heapq import heappop, heappush
 from typing import Generic, Iterator, Self, TypeVar
 
-from src.classes.exceptions import VectorOutOfBoundsError
-from src.classes.vector import Vector, VECTOR_i, VECTOR_j
+from src.classes.vector import Vector, VECTOR_i, VECTOR_j, VectorOutOfBoundsError
 
 __all__ = ['Grid']
 
