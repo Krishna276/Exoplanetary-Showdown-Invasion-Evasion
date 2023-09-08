@@ -5,13 +5,16 @@ This is a repo for the game _Exoplanetary Showdown: Invasion Evasion_ made by Co
 * Samuel Harrison
 * James Venkatesan
 * Harry Shi
+## Running the Game
+The simplest way (and the most stable way) is to run main.py.
+Another way, if you are missing dependencies, is to download the source code from here, navigate to that directory using your terminal, and run setup.py.
 ## This Project
 This is part of a project for a Computer Science class.\
 Remember that this game is still in development, so it doesn't work (at all) right now. We'll make it obvious as soon as it does work.
 ## How the game works
-Put simply, there's an attacker, trying to invade the Earth with an alien army. There is also a defender, who is trying to save the Earth from this. The defender can place turrets on the battlefield, and the attacker will summon aliens that will attempt to reach earth, with the hope of damaging the Earth's health. The attacker wins if Earth's health reaches zero (or below), and the defender wins if the Earth's health is greater than zero when the attacker runs out of a certian rescource (this is TBD, but we're thinking it should be time).
+Put simply, there's an attacker, trying to invade the Earth with an alien army. There is also a defender, who is trying to save the Earth from this. The defender can place turrets on the battlefield, and the attacker will summon aliens that will attempt to reach Earth, with the hope of damaging the Earth's health. The attacker wins if Earth's health reaches zero (or below), and the defender wins if the Earth's health is greater than zero when the attacker runs out of a certain resource (this is TBD, but we're thinking it should be time).
 ## The Battlefield
-There are multiple tiles, each with a different cost associated with it for traversal by an alien. The defender can place thier turrets on these tiles with almost no restrictions.
+There are multiple tiles, each with a different cost associated with it for traversal by an alien. The defender can place their turrets on these tiles with almost no restrictions.
 ### Types of tile
 Not all of these may be implemented. Tiles in order of how alien-friendly they are.
 |Type of tile|Alien Traversal Cost|What it does|
@@ -26,8 +29,8 @@ Not all of these may be implemented. Tiles in order of how alien-friendly they a
 |Hazard|10|Aliens will take extra damage in addition to that dealt by turrets.|
 |Block|$\infty$|Aliens cannot traverse this tile, turrets cannot be placed on these tiles either.|
 |No alien|$\infty$|Aliens cannot traverse this tile.|
-### Alien behaviour
-Aliens will follow the path of least resistance to get to the earth. When they reach it, they will be able to attack the earth. The earth has some natural defences, and will deal damage to every alien that attacks it.
+### Alien behavior
+Aliens will follow the path of least resistance to get to the earth. When they reach it, they will be able to attack the earth. The earth has some natural defenses and will deal damage to every alien that attacks it.
 ## Gameplay
 To stop the defender from blocking aliens in, they are subject to some turret placement rules.
 ### Summoning Aliens
@@ -40,7 +43,7 @@ The attacker must use a currency to summon aliens. The longer an individual alie
 |Medic|A ship that heals other ships|||||
 |Miner|A ship that picks up more currency than usual|||||
 ### Summoning Turrets
-The defender earns thier currency (for buying turrets) by killing off aliens (this works whether it was the Earth, hazard or a turret that killed the alien).
+The defender earns their currency (for buying turrets) by killing off aliens (this works whether it was the Earth, hazard, or a turret that killed the alien).
 #### Types of Turret
 |Type of turret|Description|Damage|Range|Cost|
 |-|-|-|-|-|
