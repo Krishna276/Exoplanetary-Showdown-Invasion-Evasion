@@ -15,6 +15,7 @@ Dot and cross products aren't required by the game and so aren't implemented.
 """
 
 from abc import ABC, abstractmethod
+from math import sqrt
 from typing import Iterator, Self
 
 from src.classes.exceptions import VectorOutOfBoundsError
@@ -43,6 +44,12 @@ class _BaseVector(ABC):
         if isinstance(other, (int, float)):
             return FloatVector(self._x / other, self._y / other, self._max_x, self._max_y)
         raise TypeError('Vector objects only support division by ints or floats.')
+    
+    def __abs__(self: Self) -> float:
+        return sqrt(FLOATVECTOR_0.s2(self))
+    
+    def normalise(self: Self):
+        return self / abs(self)
 
     @abstractmethod
     def __repr__(self: Self) -> str:
