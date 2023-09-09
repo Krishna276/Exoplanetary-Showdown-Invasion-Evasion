@@ -5,6 +5,7 @@ Please ensure that this file is run from the directory you want to install the g
 This file is not a very technical one. Use main.py to chose a seed.
 """
 
+from colorama import Fore
 from ensurepip import bootstrap
 from os import system as run_command
 from pathlib import Path
@@ -16,12 +17,12 @@ bootstrap()
 OS: str = operating_system()
 match OS:
     case 'Windows':
-        print('Operating system detected: Windows.')
+        print(Fore.GREEN + 'Operating system detected: Windows.' + Fore.RESET)
         run_command('py -m pip install pygame')
         run_command('py -m pip install pygame-gui')
         run_command(f'py {DIRECTORY}\\src\\main.py')
     case 'Linux':
-        print('Operating system detected: Linux.')
+        print(Fore.GREEN + 'Operating system detected: Linux.' + Fore.RESET)
         run_command('python3 -m pip install pygame')
         run_command('python3 -m pip install pygame-gui')
         run_command(f'python3 {DIRECTORY}/src/main.py')
