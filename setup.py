@@ -21,11 +21,6 @@ match OS:
         run_command('py -m pip install pygame')
         run_command('py -m pip install pygame-gui')
         run_command(f'py {DIRECTORY}\\src\\main.py')
-    case 'Linux':
-        print(Fore.GREEN + 'Operating system detected: Linux.' + Fore.RESET)
-        run_command('python3 -m pip install pygame')
-        run_command('python3 -m pip install pygame-gui')
-        run_command(f'python3 {DIRECTORY}/src/main.py')
     case _:
         print(
             'Sorry, your OS is not supported yet by the setup script.\n'
