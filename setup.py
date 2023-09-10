@@ -13,11 +13,19 @@ from platform import system as operating_system
 
 DIRECTORY: str = Path(__file__).parent.absolute()
 
-bootstrap()
+try:
+    bootstrap()
+    print(f'{Fore.GREEN}PIP auto-installation succeeded.{Fore.RESET}')
+except:
+    print(f'{Fore.RED}PIP auto-installation failed.{Fore.RESET}')
+    print(f"{Fore.YELLOW}If you don't already have PIP installed, then Pygame and Pygame GUI auto-installation will"
+        f" fail.{Fore.RESET}"
+    )
+
 OS: str = operating_system()
 match OS:
     case 'Windows':
-        print(Fore.GREEN + 'Operating system detected: Windows.' + Fore.RESET)
+        print(f'{Fore.BLUE}Operating system detected: Windows.{Fore.RESET}')
         run_command('py -m pip install pygame')
         run_command('py -m pip install pygame-gui')
         run_command(f'py {DIRECTORY}\\src\\main.py')
