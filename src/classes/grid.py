@@ -96,7 +96,7 @@ class Grid(Generic[_T]):
         closed_set: set = set()
         heappush(open_set, (0, tuple(start)))
         g_score: dict[Vector, int] = {start: 0}
-        f_score: dict[Vector, int] = {start: start.manhattan(end)}
+        f_score: dict[Vector, int] = {start: 3 * start.manhattan(end)}
         previous_nodes: dict[Vector, Vector | None] = {start: None}
 
         while open_set:
@@ -122,7 +122,7 @@ class Grid(Generic[_T]):
                 if next_ in g_score and tentative_g_score >= g_score[next_]:
                     continue
                 g_score[next_] = tentative_g_score
-                f_score[next_] = tentative_g_score + next_.manhattan(end)
+                f_score[next_] = tentative_g_score + 3 * next_.manhattan(end)
                 previous_nodes[next_] = current
                 heappush(open_set, (f_score[next_], tuple(next_)))
         return None
